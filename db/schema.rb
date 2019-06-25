@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_24_114140) do
+ActiveRecord::Schema.define(version: 2019_06_25_110612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.date "date"
+    t.text "content"
+    t.bigint "post_id"
+    t.bigint "user_id"
+    t.bigint "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_comments_on_comment_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.date "date"
@@ -24,6 +37,33 @@ ActiveRecord::Schema.define(version: 2019_06_24_114140) do
     t.datetime "updated_at", null: false
     t.index ["from_user_id"], name: "index_friendships_on_from_user_id"
     t.index ["to_user_id"], name: "index_friendships_on_to_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "type"
+    t.bigint "post_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,6 +79,13 @@ ActiveRecord::Schema.define(version: 2019_06_24_114140) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "comments", "comments"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "friendships", "users", column: "from_user_id"
   add_foreign_key "friendships", "users", column: "to_user_id"
+  add_foreign_key "likes", "posts"
+  add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "posts", "users"
 end
