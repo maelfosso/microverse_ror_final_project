@@ -28,9 +28,7 @@ RSpec.describe Post, :type => :model do
   describe "#user" do
 
     it "is for an user" do
-      expect(post.user).to be_nil
-
-      # post.user =
+      should belong_to(:user)
     end
 
     it "cannot be save without an user" do
@@ -43,6 +41,10 @@ RSpec.describe Post, :type => :model do
 
       expect(r).to be true
       expect(post.errors[:user]).to_not be_present
+    end
+
+    it "should have an user" do
+      should validate_presence_of(:user)
     end
 
     # it "is not valid if the destinated user is not valid" do

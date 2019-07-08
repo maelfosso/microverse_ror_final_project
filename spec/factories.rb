@@ -1,11 +1,29 @@
 FactoryBot.define do
   factory :user do
-    name {"Foo"}
+    name { Faker::Name.name }
+    # username { Faker::Internet.username(5..8) }
+    password { Faker::Internet.password }
+    password_digest { password }
+
+    sequence(:username) { |n| "#{Faker::Internet.username(5..8)}-#{n}" }
   end
-end
-FactoryBot.define do
+
   factory :post do
-    title {"Title"}
-    content {"Content"}
+    title {Faker::Lorem.word}
+    content {Faker::Lorem.sentence}
+  end
+
+  factory :comment do
+    user
+    post
+    content { Faker::Lorem.sentence }
   end
 end
+#
+# FactoryBot.define do
+#
+# end
+#
+# FactoryBot.define do
+#
+# end
