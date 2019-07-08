@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
   end
 
   context "is not saved because it" do
-    it "requires username" do
+    it "forbides blank username" do
       user = build(:user, username: '')
       user.save
       expect(user.errors[:username]).to include("can't be blank")

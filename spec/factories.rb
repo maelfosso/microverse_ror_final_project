@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :user, aliases: [:author, :to_user, :from_user] do
+  factory :user, aliases: [:to_user, :from_user] do
     name { Faker::Name.name }
     password { Faker::Internet.password }
     sequence(:username) { |n| "#{Faker::Internet.username(5..8)}-#{n}" }
@@ -16,7 +16,7 @@ FactoryBot.define do
   factory :post do
     title {Faker::Lorem.word}
     content {Faker::Lorem.sentence}
-    author
+    user
   end
 
   factory :comment do
