@@ -1,16 +1,22 @@
 FactoryBot.define do
-  factory :user do
+  factory :user, aliases: [:author, :to_user, :from_user] do
     name { Faker::Name.name }
-    # username { Faker::Internet.username(5..8) }
     password { Faker::Internet.password }
-    password_digest { password }
-
     sequence(:username) { |n| "#{Faker::Internet.username(5..8)}-#{n}" }
+    email { "#{username.downcase}@microverse.com" }
+  end
+
+  factory :friendship do
+    date { Date.today }
+    status { 0 }
+    to_user
+    from_user
   end
 
   factory :post do
     title {Faker::Lorem.word}
     content {Faker::Lorem.sentence}
+    author
   end
 
   factory :comment do
@@ -30,11 +36,3 @@ FactoryBot.define do
     content { Faker::Lorem.sentence }
   end
 end
-#
-# FactoryBot.define do
-#
-# end
-#
-# FactoryBot.define do
-#
-# end
