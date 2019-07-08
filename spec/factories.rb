@@ -18,6 +18,12 @@ FactoryBot.define do
     post
     content { Faker::Lorem.sentence }
   end
+
+  factory :like do
+    user
+    post
+    tol { rand 1..10 }
+  end
 end
 #
 # FactoryBot.define do

@@ -1,15 +1,17 @@
 require 'rails_helper'
 
+
 RSpec.describe Like, :type => :model do
-  describe "#content" do
-    # let(:post) = { build(:post, title: "Testing Post", content: "The long content of the post") }
+  let(:like) { build(:like, tol: 2) }
+
+  describe "#type" do
 
     it "has a type" do
-      # expect(post)
+      expect(like.tol).to eql(2)
     end
 
     it "is not valid if type is empty" do
-
+      should validate_presence_of(:tol)
     end
 
   end
@@ -17,19 +19,23 @@ RSpec.describe Like, :type => :model do
   describe "#author" do
 
     it "is has an author" do
-
+      should validate_presence_of(:user)
     end
 
-    it "is not valid without an author" do
-
+    it "belongs an author" do
+      should belong_to(:user)
     end
 
-    it "has an author saved in the database" do
+    it "must have an user" do
+      like.user = nil
+      like.save
 
-    end
+      expect(like.errors[:user]).to be_present
 
-    it "is not valid if the author is not valid" do
+      like.user = build(:user)
+      like.save
 
+      expect(like.errors[:user]).to_not be_present
     end
 
   end
@@ -37,21 +43,58 @@ RSpec.describe Like, :type => :model do
   describe "#post" do
 
     it "is from a post" do
-
+      should validate_presence_of(:post)
     end
 
-    it "is not valid without a post" do
-
+    it "connected to a post" do
+      should belong_to(:post)
     end
 
-    it "has a post saved in the database" do
+    it "must have a post" do
+      like.post = nil
+      like.save
 
-    end
+      expect(like.errors[:post]).to be_present
 
-    it "is not valid if the post is not valid" do
+      like.post = build(:post)
+      like.save
 
+      expect(like.errors[:post]).to_not be_present
     end
 
   end
 
 end
+
+# it "is from a post" do
+#
+# end
+#
+# it "is not valid without a post" do
+#
+# end
+#
+# it "has a post saved in the database" do
+#
+# end
+#
+# it "is not valid if the post is not valid" do
+#
+# end
+
+
+# it "is has an author" do
+#
+# end
+#
+# it "is not valid without an author" do
+#
+# end
+#
+# it "has an author saved in the database" do
+#
+# end
+#
+# it "is not valid if the author is not valid" do
+#
+# end
