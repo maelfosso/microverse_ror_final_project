@@ -1,34 +1,36 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Comment, :type => :model do
+RSpec.describe Comment, type: :model do
   let(:comment) { build(:comment) }
 
-  describe "#content" do
-    it "has a content" do
+  describe '#content' do
+    it 'has a content' do
       comment.content = 'A comment ccc'
       expect(comment.content).to eq('A comment ccc')
     end
 
-    it "is not valid if content empty" do
+    it 'is not valid if content empty' do
       comment.content = ''
       expect(comment).to_not be_valid
     end
 
-    it "should always have a content" do
+    it 'should always have a content' do
       should validate_presence_of(:content)
     end
   end
 
-  describe "#author" do
-    it "is has an author" do
+  describe '#author' do
+    it 'is has an author' do
       should validate_presence_of(:user)
     end
 
-    it "belongs an author" do
+    it 'belongs an author' do
       should belong_to(:user)
     end
 
-    it "must have an user" do
+    it 'must have an user' do
       comment.user = nil
       comment.save
       expect(comment.errors[:user]).to be_present
@@ -39,16 +41,16 @@ RSpec.describe Comment, :type => :model do
     end
   end
 
-  describe "#post" do
-    it "is from a post" do
+  describe '#post' do
+    it 'is from a post' do
       should validate_presence_of(:post)
     end
 
-    it "connected to a post" do
+    it 'connected to a post' do
       should belong_to(:post)
     end
 
-    it "must have a post" do
+    it 'must have a post' do
       comment.post = nil
       comment.save
       expect(comment.errors[:post]).to be_present
@@ -59,17 +61,17 @@ RSpec.describe Comment, :type => :model do
     end
   end
 
-  describe "#comment_parent" do
-    it "is valid without a parent comment" do
+  describe '#comment_parent' do
+    it 'is valid without a parent comment' do
       comment.comment = nil
       expect(comment.save).to be true
     end
 
-    it "can to be connected to a comment" do
+    it 'can to be connected to a comment' do
       should belong_to(:comment)
     end
 
-    it "is valid if related to a parent comment" do
+    it 'is valid if related to a parent comment' do
       comment.comment = build(:comment)
       expect(comment.save).to be true
     end
