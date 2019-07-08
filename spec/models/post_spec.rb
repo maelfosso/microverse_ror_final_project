@@ -23,6 +23,11 @@ RSpec.describe Post, :type => :model do
       expect(post).to_not be_valid
     end
 
+    it "must have title and content" do
+      should validate_presence_of(:title)
+      should validate_presence_of(:content)
+    end
+
   end
 
   describe "#user" do

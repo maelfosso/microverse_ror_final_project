@@ -24,6 +24,11 @@ FactoryBot.define do
     post
     tol { rand 1..10 }
   end
+
+  factory :notification do
+    user
+    content { Faker::Lorem.sentence }
+  end
 end
 #
 # FactoryBot.define do
