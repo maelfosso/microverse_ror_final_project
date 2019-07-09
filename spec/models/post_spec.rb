@@ -45,10 +45,6 @@ RSpec.describe Post, type: :model do
       expect(post.save).to be true
       expect(post.errors[:user]).to_not be_present
     end
-
-    it 'should have an user' do
-      should validate_presence_of(:user)
-    end
   end
 
   describe '#comments' do
@@ -72,14 +68,11 @@ RSpec.describe Post, type: :model do
     end
 
     it 'can have many likes' do
-      likes = create_list(:like, 2, user: user, post: post)
+      post.save
+      likes = create_list(:like, 2, user: user, subject_id: post.id, subject_type: 'post')
       post.likes = likes
 
       expect(post.likes).to eq(likes)
-    end
-
-    it 'has many likes, generally' do
-      should have_many(:likes)
     end
   end
 end

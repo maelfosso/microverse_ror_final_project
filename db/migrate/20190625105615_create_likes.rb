@@ -3,8 +3,9 @@
 class CreateLikes < ActiveRecord::Migration[5.2]
   def change
     create_table :likes do |t|
-      t.integer :type
-      t.references :post, foreign_key: { to_table: :posts }, index: true
+      t.integer :variety, null: false
+      t.integer :subject_id, null: false
+      t.string :subject_type, null: false
       t.references :user, foreign_key: { to_table: :users }, index: true
 
       t.timestamps

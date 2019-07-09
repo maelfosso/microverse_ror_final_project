@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
+  let(:user)    { build(:user) }
   let(:comment) { build(:comment) }
 
   describe '#content' do
@@ -74,6 +75,21 @@ RSpec.describe Comment, type: :model do
     it 'is valid if related to a parent comment' do
       comment.comment = build(:comment)
       expect(comment.save).to be true
+    end
+  end
+
+  describe '#likes' do
+    it 'initially has no likes' do
+      expect(comment.likes).to be_empty
+    end
+
+    it 'can have many likes' do
+      comment.save
+      likes = create_list(:like, 2, user: user,
+                          subject_id: comment.id, subject_type: 'comment')
+      comment.likes = likes
+
+      expect(comment.likes).to eq(likes)
     end
   end
 end

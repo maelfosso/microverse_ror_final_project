@@ -16,9 +16,9 @@ FactoryBot.define do
   end
 
   factory :post do
+    user
     title { Faker::Lorem.word }
     content { Faker::Lorem.sentence }
-    user
   end
 
   factory :comment do
@@ -29,8 +29,9 @@ FactoryBot.define do
 
   factory :like do
     user
-    post
-    tol { rand 1..10 }
+    variety { rand 1..9 }
+    subject_type { 'post' }
+    subject_id { rand 1..1000 }
   end
 
   factory :notification do
