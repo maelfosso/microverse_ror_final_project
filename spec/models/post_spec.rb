@@ -69,10 +69,15 @@ RSpec.describe Post, type: :model do
 
     it 'can have many likes' do
       post.save
-      likes = create_list(:like, 2, user: user, subject_id: post.id, subject_type: 'post')
+      likes = create_list(:like, 2, user: user,
+                           subject_id: post.id, subject_type: 'Post')
       post.likes = likes
 
       expect(post.likes).to eq(likes)
+    end
+
+    it 'has many likes, generally' do
+      should have_many(:likes)
     end
   end
 end

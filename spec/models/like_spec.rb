@@ -4,58 +4,48 @@ require 'rails_helper'
 
 RSpec.describe Like, type: :model do
   let(:like) { build(:like) }
+  let(:post) { build(:post) }
+  let(:comment) { build(:comment) }
 
-  context '#variety' do
+  context '#kind' do
     it 'is valid' do
       like.save
-      expect(like.errors[:variety]).to_not be_present
+      expect(like.errors[:kind]).to_not be_present
     end
 
-    it 'is not valid, variety takes values in range(0..9)' do
-      should validate_presence_of(:variety)
+    it 'is not valid, kind takes values in range(0..9)' do
+      should validate_presence_of(:kind)
 
-      like.variety = 10
+      like.kind = 10
       like.save
-      expect(like.errors[:variety]).to be_present
+      expect(like.errors[:kind]).to be_present
     end
   end
 
-  context '#subject_id' do
-    it 'is valid' do
-      like.save
-      expect(like.errors[:subject_id]).to_not be_present
+  context '#related subject' do
+    it 'is a post' do
+      like.subject = post
+      expect(like.subject_type).to eq('Post')
     end
 
-    it 'is not valid, subject_id must be present' do
-      should validate_presence_of(:subject_id)
-
-      like.subject_id = nil
-      like.save
-      expect(like.errors[:subject_id]).to be_present
-    end
-  end
-
-  context '#subject_type' do
-    it 'is valid' do
-      like.save
-      expect(like.errors[:subject_type]).to_not be_present
+    it 'is a comment' do
+      like.subject = comment
+      expect(like.subject_type).to eq('Comment')
     end
 
-    it 'is not valid, only post or comment are accepted as subject type' do
-      should validate_presence_of(:subject_type)
-
-      like.subject_type = 'article'
-      like.save
-      expect(like.errors[:subject_type]).to be_present
+    it "can't be nil"  do
+      comment.subject = nil
+      comment.save
+      expect(comment.errors[:subject]).to be_present
     end
   end
 
   context '#author' do
-    it 'is has an author' do
+    it 'has an author' do
       should validate_presence_of(:user)
     end
 
-    it 'belongs an author' do
+    it 'belongs to an author' do
       should belong_to(:user)
     end
 

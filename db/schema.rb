@@ -17,14 +17,13 @@ ActiveRecord::Schema.define(version: 2019_07_08_070140) do
 
   create_table "comments", force: :cascade do |t|
     t.date "date"
-    t.text "content"
-    t.bigint "post_id"
+    t.text "content", null: false
+    t.string "subject_type"
+    t.bigint "subject_id"
     t.bigint "user_id"
-    t.bigint "comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["comment_id"], name: "index_comments_on_comment_id"
-    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["subject_type", "subject_id"], name: "index_comments_on_subject_type_and_subject_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -40,17 +39,18 @@ ActiveRecord::Schema.define(version: 2019_07_08_070140) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "variety", null: false
-    t.integer "subject_id", null: false
-    t.string "subject_type", null: false
+    t.integer "kind", null: false
+    t.string "subject_type"
+    t.bigint "subject_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["subject_type", "subject_id"], name: "index_likes_on_subject_type_and_subject_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.text "content"
+    t.text "content", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_070140) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
-    t.text "content"
+    t.text "content", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -84,8 +84,6 @@ ActiveRecord::Schema.define(version: 2019_07_08_070140) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "comments"
-  add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "friendships", "users", column: "from_user_id"
   add_foreign_key "friendships", "users", column: "to_user_id"

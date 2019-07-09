@@ -23,15 +23,18 @@ FactoryBot.define do
 
   factory :comment do
     user
-    post
     content { Faker::Lorem.sentence }
+    after(:build) do |comment|
+      comment.subject = create(:post)
+    end
   end
 
   factory :like do
     user
-    variety { rand 1..9 }
-    subject_type { 'post' }
-    subject_id { rand 1..1000 }
+    kind { rand 1..9 }
+    after(:build) do |like|
+      like.subject = create(:post)
+    end
   end
 
   factory :notification do
