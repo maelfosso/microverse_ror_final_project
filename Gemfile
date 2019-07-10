@@ -41,9 +41,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
-  gem 'shoulda-matchers',
-      git: 'https://github.com/thoughtbot/shoulda-matchers.git',
-      branch: 'rails-5'
+  gem 'shoulda-matchers'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
@@ -73,7 +71,8 @@ group :test do
   gem 'rspec-collection_matchers'
   # gem 'database_cleaner'
 end
-gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
+
+gem 'faker'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
