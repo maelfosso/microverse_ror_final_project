@@ -4,24 +4,48 @@ require 'rails_helper'
 
 RSpec.describe Like, type: :model do
   let(:like) { build(:like) }
+  let(:post) { build(:post) }
+  let(:comment) { build(:comment) }
 
-  describe '#type' do
-    it 'has a type' do
-      like.tol = 2
-      expect(like.tol).to eql(2)
+  context '#kind' do
+    it 'is valid' do
+      like.save
+      expect(like.errors[:kind]).to_not be_present
     end
 
-    it 'is not valid if type is empty' do
-      should validate_presence_of(:tol)
+    it 'is not valid, kind takes values in range(0..9)' do
+      should validate_presence_of(:kind)
+
+      like.kind = 10
+      like.save
+      expect(like.errors[:kind]).to be_present
     end
   end
 
-  describe '#author' do
-    it 'is has an author' do
+  context '#related subject' do
+    it 'is a post' do
+      like.subject = post
+      expect(like.subject_type).to eq('Post')
+    end
+
+    it 'is a comment' do
+      like.subject = comment
+      expect(like.subject_type).to eq('Comment')
+    end
+
+    it "can't be nil"  do
+      comment.subject = nil
+      comment.save
+      expect(comment.errors[:subject]).to be_present
+    end
+  end
+
+  context '#author' do
+    it 'has an author' do
       should validate_presence_of(:user)
     end
 
-    it 'belongs an author' do
+    it 'belongs to an author' do
       should belong_to(:user)
     end
 
@@ -33,26 +57,6 @@ RSpec.describe Like, type: :model do
       like.user = build(:user)
       like.save
       expect(like.errors[:user]).to_not be_present
-    end
-  end
-
-  describe '#post' do
-    it 'is from a post' do
-      should validate_presence_of(:post)
-    end
-
-    it 'connected to a post' do
-      should belong_to(:post)
-    end
-
-    it 'must have a post' do
-      like.post = nil
-      like.save
-      expect(like.errors[:post]).to be_present
-
-      like.post = build(:post)
-      like.save
-      expect(like.errors[:post]).to_not be_present
     end
   end
 end

@@ -3,7 +3,7 @@
 class CreateNotifications < ActiveRecord::Migration[5.2]
   def change
     create_table :notifications do |t|
-      t.text :content
+      t.text :content, null: false
       t.references :user, foreign_key: { to_table: :users }, index: true
 
       t.timestamps

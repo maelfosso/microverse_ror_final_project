@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
+  let(:user)    { build(:user) }
+  let(:post)    { build(:post) }
   let(:comment) { build(:comment) }
+  let(:comment2) { build(:comment) }
 
   describe '#content' do
     it 'has a content' do
@@ -22,11 +25,11 @@ RSpec.describe Comment, type: :model do
   end
 
   describe '#author' do
-    it 'is has an author' do
+    it 'has an author' do
       should validate_presence_of(:user)
     end
 
-    it 'belongs an author' do
+    it 'belongs to an author' do
       should belong_to(:user)
     end
 
@@ -34,46 +37,60 @@ RSpec.describe Comment, type: :model do
       comment.user = nil
       comment.save
       expect(comment.errors[:user]).to be_present
-
-      comment.user = build(:user)
-      comment.save
-      expect(comment.errors[:user]).to_not be_present
     end
   end
 
-  describe '#post' do
-    it 'is from a post' do
-      should validate_presence_of(:post)
+  describe '#related subject' do
+    it 'is a post' do
+      comment.subject = post
+      expect(comment.subject_type).to eq('Post')
     end
 
-    it 'connected to a post' do
-      should belong_to(:post)
+    it 'is a comment' do
+      comment2.subject = comment
+      expect(comment2.subject_type).to eq('Comment')
     end
 
-    it 'must have a post' do
-      comment.post = nil
+    it "can't be nil"  do
+      comment.subject = nil
       comment.save
-      expect(comment.errors[:post]).to be_present
-
-      comment.post = build(:post)
-      comment.save
-      expect(comment.errors[:post]).to_not be_present
+      expect(comment.errors[:subject]).to be_present
     end
   end
 
-  describe '#comment_parent' do
-    it 'is valid without a parent comment' do
-      comment.comment = nil
-      expect(comment.save).to be true
+  describe '#likes' do
+    it 'initially has no likes' do
+      expect(comment.likes).to be_empty
     end
 
-    it 'can to be connected to a comment' do
-      should belong_to(:comment)
+    it 'can have many likes' do
+      comment.save
+      likes = create_list(:like, 2, subject: comment)
+      comment.likes = likes
+
+      expect(comment.likes).to eq(likes)
     end
 
-    it 'is valid if related to a parent comment' do
-      comment.comment = build(:comment)
-      expect(comment.save).to be true
+    it 'has many likes, generally' do
+      should have_many(:likes)
+    end
+  end
+
+  describe '#comments' do
+    it 'initially has no comments' do
+      expect(comment.comments).to be_empty
+    end
+
+    it 'can have many comments' do
+      comment.save
+      comments = create_list(:comment, 2, subject: comment)
+      comment.comments = comments
+
+      expect(comment.comments).to eq(comments)
+    end
+
+    it 'has many comments, generally' do
+      should have_many(:comments)
     end
   end
 end

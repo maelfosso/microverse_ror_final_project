@@ -2,14 +2,12 @@
 
 class Post < ApplicationRecord
   belongs_to :user
-  validates :user, presence: true
 
-  has_many :comments
-  has_many :commented_users, through: :comments, source: :user
+  has_many :comments, as: :subject
+  has_many :commentators, through: :comments, source: :user
 
-  has_many :likes
-  has_many :likes_users, through: :likes, source: :user
+  has_many :likes, as: :subject
+  has_many :likers, through: :likes, source: :user
 
-  validates :title, presence: true
-  validates :content, presence: true
+  validates :user, :title, :content, presence: true
 end
