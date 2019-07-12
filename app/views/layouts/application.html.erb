@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-<<<<<<< HEAD
-    <title>FinalProject</title>
-=======
     <title>MicroverseRorFinalProject</title>
->>>>>>> 5fcd229be034a03909e2bc4c8b6f8471ecdbf674
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -14,6 +10,7 @@
   </head>
 
   <body>
+    <h1> FACEBOOK_API_ID = <%= ENV['FACEBOOK_API_ID'] %></h1>
     <%= yield %>
   </body>
 </html>
