@@ -5,49 +5,24 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  devise :omniauthable, omniauth_providers: %i[facebook]
 
-  has_many :sent_friend_requests, -> { where('status = 0') },
-           class_name: 'Friendship', foreign_key: 'from_user_id'
-  has_many :sent_friend_requests_users, through: :sent_friend_requests,
-                                        source: :to_user
+  has_many :requested_friendships, class_name: 'Friendship',
+            foreign_key: 'requestor_id', dependent: :destroy
+  has_many :received_friendships, class_name: 'Friendship',
+            foreign_key: 'acceptor_id', dependent: :destroy
 
-  has_many :received_friend_requests, -> { where('status = 0') },
-           class_name: 'Friendship', foreign_key: 'to_user_id'
-  has_many :received_friend_requests_users, through: :received_friend_requests,
-                                            source: :from_user
-
-  has_many :requested_friendships, -> { where('status = 1') },
-           class_name: 'Friendship', foreign_key: 'from_user_id'
-  has_many :requested_friends, through: :requested_friendships,
-                               source: :to_user
-
-  has_many :accepted_friendships, -> { where('status = 1') },
-            class_name: 'Friendship', foreign_key: 'to_user_id'
-  has_many :accepted_friends, through: :accepted_friendships,
-                              source: :from_user
-
-  has_many :author_posts, class_name: 'Post', foreign_key: 'post_id'
-
-  has_many :comments
-  has_many :commented_posts, through: :comments,
-            source: :subject, source_type: 'Post'
-  has_many :commented_comments, through: :comments,
-            source: :subject, source_type: 'Comment'
-
-  has_many :likes
-  has_many :liked_posts, through: :likes, source: :subject, source_type: 'Post'
-  has_many :liked_comments, through: :likes, source: :subject, source_type: 'Comment'
-
-  has_many :notifications
-
-  validates :username, presence: true
+  has_many :posts, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   def friend_requests
-    sent_friend_requests_users + received_friend_requests_users
+    {sent: requested_friendships.pending.map(&:acceptor),
+     received: received_friendships.pending.map(&:requestor)}
   end
 
   def friends
-    requested_friends + accepted_friends
+    requested_friendships.accepted.map(&:acceptor) +
+    received_friendships.accepted.map(&:requestor)
   end
 
   def self.new_with_session(param, session)
@@ -59,19 +34,12 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
+    where(auth.slice(:provider, :uid)).first_or_create do |user|
       user.name = auth.info.name
-      user.username = auth.info.name.delete(" ").downcase
-
-      user.provider = auth.provider
-      user.uid = auth.uid
+      user.email = auth.info.email
       user.photo_path = auth.info.image
-      user.oauth_token = auth.credentials.token
-      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
-
-      user.save!
+      user.password = Devise.friendly_token[0, 20]
+      user.username = auth.info.name.delete(" ").downcase
     end
   end
 

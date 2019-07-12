@@ -1,5 +1,5 @@
-class SessionController < ApplicationController
-  def create
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def facebook
     @user = User.from_omniauth(request.env['omniauth.auth'])
 
     if @user.persisted?
@@ -13,8 +13,5 @@ class SessionController < ApplicationController
 
   def failure
     redirect_to root_path
-  end
-
-  def destroy
   end
 end

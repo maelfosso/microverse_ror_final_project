@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :user, aliases: %i[to_user from_user] do
+  factory :user, aliases: %i[acceptor requestor] do
     name { Faker::Name.name }
     password { Faker::Internet.password }
     sequence(:username) { |n| "#{Faker::Internet.username(5..8)}-#{n}" }
@@ -11,8 +11,8 @@ FactoryBot.define do
   factory :friendship do
     date { Date.today }
     status { 0 }
-    to_user
-    from_user
+    acceptor
+    requestor
   end
 
   factory :post do
@@ -31,7 +31,7 @@ FactoryBot.define do
 
   factory :like do
     user
-    kind { rand 1..9 }
+    kind { rand 0..5 }
     after(:build) do |like|
       like.subject = create(:post)
     end

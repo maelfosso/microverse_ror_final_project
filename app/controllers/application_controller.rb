@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-
-  # def index
-  #   facebookApiId = ENV['FACEBOOK_API_ID']
-  #   debugger
-  # end
+  def index
+    current_user ? render('/index') : redirect_to(new_user_registration_url)
+  end
 end

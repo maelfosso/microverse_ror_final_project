@@ -3,69 +3,55 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { build(:user) }
+  let(:user1) { build(:user) }
   let(:user2) { build(:user) }
   let(:user3) { build(:user) }
+  let(:friendship1) { create(:friendship, requestor: user1, acceptor: user2) }
+  let(:friendship2) { create(:friendship, requestor: user1, acceptor: user3) }
+  let(:friendship3) { create(:friendship, requestor: user2, acceptor: user3) }
 
-  it 'creates valid user' do
-    expect(user.save).to be(true)
+  describe 'validations' do
+    context 'complete required info' do
+      it 'is valid' do
+        expect(user1).to be_valid
+      end
+    end
+
+    # context 'username is missing' do
+    #   it 'is not valid' do
+    #     user1.update(username: '')
+    #     expect(user1.errors[:username]).to include("can't be blank")
+    #   end
+    # end
   end
 
-  context 'is not saved because it' do
-    it 'forbides blank username' do
-      user = build(:user, username: '')
-      user.save
-      expect(user.errors[:username]).to include("can't be blank")
+  describe 'friendships' do
+    context 'with pending status' do
+      before(:each) do
+        friendship1
+        friendship2
+        friendship3
+      end
+
+      it 'shows friend requests' do
+        expect(user1.friend_requests[:sent]).to eq([user2, user3])
+        expect(user3.friend_requests[:received]).to eq([user1, user2])
+      end
     end
 
-    it 'requires valid email' do
-      user = build(:user, email: '')
-      user.save
-      expect(user.errors[:email]).to include("can't be blank")
+    context 'with accepted status' do
+      before(:each) do
+        friendship2.accept
+        friendship3.accept
+      end
 
-      user.email = 'wrongmicro.com'
-      user.save
-      expect(user.errors[:email]).to include('is invalid')
-    end
+      it 'shows friends' do
+        expect(user3.friends).to eq([user1, user2])
+      end
 
-    it 'requires password to contain at least 6 characters' do
-      user = build(:user, password: '')
-      user.save
-      expect(user.errors[:password]).to include("can't be blank")
-
-      user.password = 'admin'
-      user.save
-      expect(user.errors[:password]).to include('is too short (minimum is 6 characters)')
-    end
-  end
-
-  context 'friendships' do
-    before(:each) do
-      @f1 = create(:friendship, to_user: user2, from_user: user)
-      @f2 = create(:friendship, to_user: user3, from_user: user)
-    end
-
-    it 'creates friend requests' do
-      expect(user.sent_friend_requests_users.to_a).to eq([user2, user3])
-    end
-
-    it 'shows friend requests' do
-      expect(user2.friend_requests.to_a).to eq([user])
-      expect(user3.friend_requests.to_a).to eq([user])
-      expect(user.friend_requests.to_a).to eq([user2, user3])
-    end
-
-    it 'accepts friendship' do
-      @f1.update(status: 1)
-      expect(@f1.status).to be(1)
-      expect(@f2.status).to be(0)
-    end
-
-    it 'loads friends' do
-      @f1.update(status: 1)
-      expect(user3.friends.to_a).to eq([])
-      expect(user.friends.to_a).to eq([user2])
-      expect(user2.friends.to_a).to eq([user])
+      it 'updates friend requests' do
+        expect(user3.friend_requests[:received]).to be_empty
+      end
     end
   end
 end

@@ -15,10 +15,9 @@ RSpec.describe Like, type: :model do
 
     it 'is not valid, kind takes values in range(0..9)' do
       should validate_presence_of(:kind)
-
-      like.kind = 10
-      like.save
-      expect(like.errors[:kind]).to be_present
+      like.update(kind: 7)
+    rescue ArgumentError => e
+      expect(e).to be_present
     end
   end
 

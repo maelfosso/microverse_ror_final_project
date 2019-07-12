@@ -10,16 +10,16 @@ RSpec.describe Comment, type: :model do
 
   describe '#content' do
     it 'has a content' do
-      comment.content = 'A comment ccc'
+      comment.update(content: 'A comment ccc')
       expect(comment.content).to eq('A comment ccc')
     end
 
-    it 'is not valid if content empty' do
-      comment.content = ''
+    it 'is not valid if empty' do
+      comment.update(content: '')
       expect(comment).to_not be_valid
     end
 
-    it 'should always have a content' do
+    it 'should always be set' do
       should validate_presence_of(:content)
     end
   end
@@ -64,7 +64,6 @@ RSpec.describe Comment, type: :model do
     end
 
     it 'can have many likes' do
-      comment.save
       likes = create_list(:like, 2, subject: comment)
       comment.likes = likes
 
