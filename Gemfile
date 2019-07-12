@@ -35,11 +35,6 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'devise'
-gem 'omniauth-facebook'
-
-gem 'omniauth-facebook'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
@@ -51,7 +46,13 @@ group :development, :test do
       branch: 'rails-5'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+
+  gem 'dotenv-rails', require: 'dotenv/rails-now'
+
 end
+
+gem 'devise'
+gem 'omniauth-facebook'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.

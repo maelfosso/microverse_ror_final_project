@@ -10,20 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_08_070140) do
+ActiveRecord::Schema.define(version: 2019_07_12_021946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
     t.date "date"
-    t.text "content", null: false
-    t.string "subject_type"
-    t.bigint "subject_id"
+    t.text "content"
+    t.bigint "post_id"
     t.bigint "user_id"
+    t.bigint "comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["subject_type", "subject_id"], name: "index_comments_on_subject_type_and_subject_id"
+    t.index ["comment_id"], name: "index_comments_on_comment_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -39,18 +40,17 @@ ActiveRecord::Schema.define(version: 2019_07_08_070140) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "kind", null: false
-    t.string "subject_type"
-    t.bigint "subject_id"
+    t.integer "tol"
+    t.bigint "post_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["subject_type", "subject_id"], name: "index_likes_on_subject_type_and_subject_id"
+    t.index ["post_id"], name: "index_likes_on_post_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.text "content", null: false
+    t.text "content"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_070140) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
-    t.text "content", null: false
+    t.text "content"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 2019_07_08_070140) do
     t.date "date_of_birth"
     t.string "nationality"
     t.string "username", null: false
+    t.string "password", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
@@ -80,13 +82,21 @@ ActiveRecord::Schema.define(version: 2019_07_08_070140) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "provider"
+    t.string "uid"
+    t.string "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.string "photo_path"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "comments"
+  add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "friendships", "users", column: "from_user_id"
   add_foreign_key "friendships", "users", column: "to_user_id"
+  add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "posts", "users"
