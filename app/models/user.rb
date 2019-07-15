@@ -16,13 +16,13 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   def friend_requests
-    {sent: requested_friendships.pending.map(&:acceptor),
-     received: received_friendships.pending.map(&:requestor)}
+    {sent: requested_friendships.pending.includes(:acceptor).map(&:acceptor),
+     received: received_friendships.pending.includes(:requestor).map(&:requestor)}
   end
 
   def friends
-    requested_friendships.accepted.map(&:acceptor) +
-    received_friendships.accepted.map(&:requestor)
+    requested_friendships.accepted.includes(:acceptor).map(&:acceptor) +
+    received_friendships.accepted.includes(:requestor).map(&:requestor)
   end
 
   def self.new_with_session(param, session)
