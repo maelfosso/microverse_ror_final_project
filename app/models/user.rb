@@ -26,8 +26,8 @@ class User < ApplicationRecord
   end
 
   def friend_posts
-    received_friendships.accepted.includes(:posts).map(&:posts) +
-    requested_friendships.accepted.includes(:posts).map(&:posts)
+    received_friendships.accepted.includes(acceptor: [:posts]).map(&:posts) +
+    requested_friendships.accepted.includes(requestor: [:posts]).map(&:posts)
   end
 
   def self.new_with_session(param, session)
