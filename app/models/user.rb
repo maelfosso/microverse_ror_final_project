@@ -25,6 +25,11 @@ class User < ApplicationRecord
     received_friendships.accepted.includes(:requestor).map(&:requestor)
   end
 
+  def friend_posts
+    received_friendships.accepted.includes(:posts).map(&:posts) +
+    requested_friendships.accepted.includes(:posts).map(&:posts)
+  end
+
   def self.new_with_session(param, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]

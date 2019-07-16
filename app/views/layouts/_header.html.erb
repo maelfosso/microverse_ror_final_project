@@ -1,0 +1,15 @@
+<header>
+  <h1 class="title"><%= link_to 'Allbook', root_path %></h1>
+  <nav>
+    <ul>
+      <li><%= link_to "#{current_user.name.split[0]}", "/#{current_user.username}" %></li>
+      <li><%= link_to 'Home', root_path %></li>
+      <li><%= link_to 'Create Post', new_post_path %></li>
+      <li><%= link_to 'Notifications', '/notifications' %></li>
+      <li><%= link_to 'Friends', '/friends' %></li>
+      <li><%= link_to 'Find Friends', '/search' %></li>
+      <li><%= link_to 'Friend Requests', '/friends/requests' %></li>
+      <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+    </ul>
+  </nav>
+</header>
