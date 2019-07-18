@@ -2,19 +2,23 @@
 
 Rails.application.routes.draw do
   root to: 'users#home'
+  get '/friends', to: 'friendships#index'
+  get '/notifications', to: 'notifications#index'
+  get '/friends/requests', to: 'friendships#pending'
 
-  devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
-
-  resources :posts do
-    resources :likes
-    resources :comments
+  resources :posts, only: [:new, :create, :update] do
+    resources :likes, only: [:index]
+    resources :comments, only: [:index]
   end
 
-  resources :friendships, only: [:create, :update]
+  resources :comments, only: [:new, :create, :update] do
+    resources :likes, only: [:index]
+    resources :comments, only: [:index], path: 'replies'
+  end
 
-  get '/search', to: 'users#index'
-  get '/notifications', to: 'notifications#index'
-  get '/friends', to: 'friendships#index'
-  get '/friends/requests', to: 'friendships#pending'
-  get '/:username', to: 'users#timeline'
+  resources :likes, only: [:create, :update]
+  resources :friendships, only: [:create, :update]
+  resources :users, only: [:index, :show], path: 'u'
+
+  devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
 end

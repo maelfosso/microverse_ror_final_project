@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def home
+    @user = current_user
     @posts = current_user.posts + current_user.friend_posts
   end
 
@@ -7,7 +8,8 @@ class UsersController < ApplicationController
     @users = User.where("users.id != #{current_user.id}")
   end
 
-  def timeline
-    @posts = current_user.posts
+  def show
+    @user = User.find(params[:id])
+    @posts = @user.posts
   end
 end

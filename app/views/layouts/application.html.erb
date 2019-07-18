@@ -11,6 +11,11 @@
 
   <body>
     <%= render('layouts/header') if user_signed_in?  %>
-    <%= yield %>
+    <main>
+      <% if @user %>
+        <aside><%= render('layouts/aside') %></aside>
+      <% end %>
+      <section><%= yield %></section>
+    </main>
   </body>
 </html>

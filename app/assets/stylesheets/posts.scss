@@ -1,3 +1,178 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$grey: #ddd;
+
+.post-wrapper {
+  padding: 5px;
+  margin: auto;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid $grey;
+
+  header {
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+
+    a {
+      color: #1300a3;
+      text-decoration: none;
+    }
+
+    img {
+      width: 24px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+  }
+
+  main {
+    padding: 0 7px;
+
+    p {
+      margin: 0;
+
+      &.title {
+        padding: 5px;
+        font-weight: bold;
+      }
+
+      &.content {
+        padding: 15px 10px;
+        border-top: 1px dashed $grey;
+        border-bottom: 1px dashed $grey;
+      }
+    }
+  }
+
+  footer {
+    padding: 0 10px 10px;
+
+    .goto {
+      color: #555;
+      cursor: default;
+
+      a {
+        color: inherit;
+        font-size: 0.9em;
+        padding: 5px 0 10px;
+        display: inline-block;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline
+        }
+      }
+
+      span {
+        margin: 0 3px;
+        line-height: 0;
+        font-size: 2em;
+      }
+    }
+
+    >.likes {
+      position: relative;
+      display: inline-block;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .wrapper {
+        left: -50px;
+        bottom: 100%;
+        display: none;
+        padding: 5px 0;
+        position: absolute;
+
+        >ul {
+          margin: 0;
+          padding: 5px;
+          display: flex;
+          list-style: none;
+          border-radius: 25px;
+          background: #faf9ff;
+          border: 1px solid #eee;
+
+          li {
+            a {
+              margin: 0 5px;
+              display: flex;
+              font-size: 20px;
+              color: #1300a3;
+              white-space: nowrap;
+              align-items: center;
+              flex-direction: column;
+
+              &:hover {
+                span {
+                  text-decoration: underline;
+                }
+
+                i {
+                  top: -3px;
+                  position: relative;
+                }
+              }
+
+              &[class~=heart] {
+                color: #e70040;
+              }
+
+              &[class~=laugh] {
+                color: #59a900;
+              }
+
+              &[class~=surprise] {
+                color: #c0ae00;
+              }
+
+              &[class~=angry] {
+                color: #ab0000;
+              }
+
+              span {
+                font-size: 11px;
+              }
+            }
+          }
+        }
+      }
+
+      &:hover .wrapper {
+        display: block;
+      }
+    }
+
+    >a,
+    >.likes,
+    >.comments button {
+      cursor: pointer;
+      border: none;
+      color: #000;
+      padding: 3px 10px;
+      margin-right: 5px;
+      border-radius: 2px;
+      display: inline-block;
+      background: #f2f2f2;
+      text-decoration: none;
+
+    }
+
+    >.comments {
+      textarea {
+        width: 100%;
+        resize: none;
+        border-radius: 25px;
+        border: 1px solid #aaa;
+        padding: 5px 5px 5px 10px;
+      }
+    }
+  }
+}

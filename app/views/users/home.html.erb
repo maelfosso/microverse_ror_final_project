@@ -1,1 +1,7 @@
-Welcome home!
+<section class="home">
+  <ul>
+    <% @posts.each do |post| %>
+      <%= render 'posts/post', post: post %>
+    <% end %>
+  </ul>
+</section>
