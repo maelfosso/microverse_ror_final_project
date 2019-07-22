@@ -1,19 +1,13 @@
 class LikesController < ApplicationController
   def index
-    if /\A\/posts/ =~ request.path
-      @likes = Post.find(params[:post_id]).likes
-    elsif /\A\/comments/ =~ request.path
-      @likes = Comment.find(params[:comment_id]).likes
-    end
+    @likes = Post.find(params[:post_id]).likes
   end
 
   def create
     @like = Like.new(like_params)
     if @like.save
-      subject = like_params[:subject]
-      sendNotification(subject.user,
-                       "#{current_user.name} react to your "\
-                       "#{subject.class == 'Post' ? 'post' : 'comment'}")
+      sendNotification(params[:subject_author_id], current_user,
+                       'like', comment_params[:subject_type])
     else
       flash.now[:error] = 'An error occured!'
     end
@@ -27,6 +21,6 @@ class LikesController < ApplicationController
   end
 
   def like_params
-    params.permit(:user, :subject, :kind)
+    params.permit(:user_id, :subject_id, :subject_type, :kind)
   end
 end

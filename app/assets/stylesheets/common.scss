@@ -4,15 +4,15 @@
   box-sizing: border-box;
 }
 
-html {
+html,
+body {
   height: 100%;
+  font-size: 13px;
 }
 
 body {
   margin: 0;
-  height: 100%;
   display: flex;
-  font-size: 13px;
   background: #f2f2f2;
   flex-direction: column;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

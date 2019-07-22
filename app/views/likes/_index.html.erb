@@ -1,0 +1,33 @@
+<header>
+  <ul>
+    <% if @likes.thumbs %>
+      <li><%= icon('fas', 'thumbs-up') %> <%= @likes.thumbs.size %></li>
+    <% end %>
+    <% if @likes.heart %>
+      <li><%= icon('fas', 'heart') %> <%= @likes.heart.size %></li>
+    <% end %>
+    <% if @likes.laugh %>
+      <li><%= icon('fas', 'laugh') %> <%= @likes.laugh.size %></li>
+    <% end %>
+    <% if @likes.surprise %>
+      <li><%= icon('fas', 'surprise') %> <%= @likes.surprise.size %></li>
+    <% end %>
+    <% if @likes.angry %>
+      <li><%= icon('fas', 'angry') %> <%= @likes.angry.size %></li>
+    <% end %>
+  </ul>
+  <button class='close'><%= icon('fas', 'times') %></button>
+</header>
+<ul>
+  <%= @likes.each do |like| %>
+    <li>
+      <a class="photo">
+        <%= icon('fas', 'thumbs-up') %>
+      </a>
+      <a href="">
+        <%= like.user.name %>
+      </a>
+      <a href=""><%= icon('fas', 'user-plus') %> Add Friend</a>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,22 @@
+<div class="like-form">
+  <div class="kinds">
+    <ul>
+      <% [{icon: 'thumbs-up', kind: 0, name: 'Like'}, {icon: 'heart', kind: 1, name: 'Love'},
+          {icon: 'laugh', kind: 3, name: 'Haha'}, {icon: 'surprise', kind: 4, name: 'Wow'},
+          {icon: 'angry', kind: 5, name: 'Angry'}].each do |like| %>
+        <li>
+          <%= link_to(likes_path(subject_author_id: subject.user.id, subject_id: subject.id,
+                                  subject_type: subject.class.name, kind: like[:kind], user_id: current_user.id),
+                      method: :post, remote: true, class: "#{like[:icon]}") do %>
+            <%= icon('fas', like[:icon]) %> <span><%= like[:name] %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= link_to(likes_path(subject_author_id: subject.user.id, subject_id: subject.id,
+              subject_type: subject.class.name, kind: 0, user_id: current_user.id),
+              remote: true, method: :post) do %>
+    <%= icon('far', 'thumbs-up') %> Like
+  <% end %>
+</div>
