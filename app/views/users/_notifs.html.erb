@@ -1,0 +1,16 @@
+<div class="notifs">
+  <header>
+    Notifications
+    <%= link_to 'See All', notifications_path %>
+  </header>
+  <ul>
+    <% user.notifications.each do |notif| %>
+      <li>
+        <%= link_to notif.subject.post || notif.subject do %>
+          <span class="photo"></span>
+          <%= notif.content %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

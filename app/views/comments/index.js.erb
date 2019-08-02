@@ -1,0 +1,3 @@
+list = $("<%= data_id @subject %> .comment-list")
+list.html("<%= j render 'index', comments: @comments %>")
+list.show()

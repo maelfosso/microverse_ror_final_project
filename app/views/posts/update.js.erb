@@ -1,0 +1,3 @@
+$('#modal').removeClass('show')
+post = $("[data-post-id='<%= @post.id %>']")
+post.replaceWith("<%= j render 'post', post: @post %>")

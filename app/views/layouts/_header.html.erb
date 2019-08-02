@@ -1,34 +1,35 @@
 <header>
   <h1 class="title"><%= link_to 'Allbook', root_path %></h1>
-  <nav>
-    <ul>
-      <li>
-        <%= link_to current_user, class: 'profile-link' do %>
-          <%#= image_tag(current_user.photo_path) %>
-          <%= current_user.name.split[0] %>
-        <% end %>
-      </li>
-      <li><%= link_to 'Home', root_path %></li>
-      <li><%= link_to 'Create Post', new_post_path %></li>
-      <li>
-        <%= link_to notifications_path do%>
-          <%= icon('fas', 'bell') %> Notifications
-        <% end %>
-      </li>
-      <li class="friendships">
-        <%= icon('fas', 'user-friends') %> Friendships
-        <ul>
-          <li><%= link_to 'Friends', friends_path %></li>
-          <li><%= link_to 'Find Friends', users_path %></li>
-          <li><%= link_to 'Friend Requests', friends_requests_path %></li>
-        </ul>
-      </li>
-      <li class="account">
-        <%= icon('fas', 'chevron-down') %>
-        <div>
-          <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
-        </div>
-      </li>
-    </ul>
-  </nav>
+  <% if user_signed_in? %>
+    <nav>
+      <ul>
+        <li>
+          <%= link_to current_user, class: 'profile-link' do %>
+            <span class="photo">
+              <%#= image_tag(current_user.photo_path) %>
+            </span>
+            <%= current_user.username || (current_user.name && current_user.name.split[0]) %>
+          <% end %>
+        </li>
+        <li><%= link_to 'Home', root_path %></li>
+        <li>
+          <%= link_to notifications_path do%>
+            <%= icon('fas', 'bell') %> Notifications
+          <% end %>
+        </li>
+        <li class="f-menu">
+          <%= link_to users_path do %>
+            <%= icon('fas', 'user-friends') %> Find Friends
+          <% end %>
+          <%= link_to 'Friend Requests', friendships_path(s: 'r') %>
+        </li>
+        <li class="account">
+          <%= icon('fas', 'chevron-down') %>
+          <ul>
+            <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  <% end %>
 </header>

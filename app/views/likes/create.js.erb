@@ -1,0 +1,9 @@
+$subject = $("<%= data_id @subject %>")
+loader = $subject.find('.likes-loader')
+if (loader.length == 0)
+  $subject.find('.loader').prepend("<%= j render 'load', subject: @subject %>")
+else
+  loader.replaceWith("<%= j render 'load', subject: @subject %>")
+$subject.find('.like-form .choice').removeClass('default')
+$subject.find('.like-form .choice').html("<%= j render 'destroy', like: @like %>")
+$subject.find('.like-form .kinds').html("<%= j render 'kinds', form: 'edit', locals: {like: @like} %>")

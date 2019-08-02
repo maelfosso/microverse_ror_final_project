@@ -1,0 +1,10 @@
+<% if subject.comments.any? %>
+  <% if subject.class.name == 'Post' %>
+    <%= link_to post_comments_path(subject), remote: true, class: 'comments-loader' do %>
+      <%= subject.comments.size %> Comments
+    <% end %>
+  <% elsif subject.class.name == 'Comment' %>
+    <%= link_to 'See all replies', comment_comments_path(subject),
+                remote: true, class: 'comments-loader' %>
+  <% end %>
+<% end %>

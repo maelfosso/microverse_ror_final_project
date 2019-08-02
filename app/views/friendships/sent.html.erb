@@ -1,8 +1,8 @@
 <div class="friendships">
   <header>
     <h3>
-      <%= "#{@user.name}'s " if @user != current_user  %>
-      Friends
+      Friends Requests Sent
+      <%= link_to 'View received requests', friendships_path(s: 'r'), class: 'link' %>
     </h3>
   </header>
   <%= render 'friendship', users: @users %>

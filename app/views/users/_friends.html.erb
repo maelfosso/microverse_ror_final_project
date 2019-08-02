@@ -1,0 +1,16 @@
+<div class="friends">
+  <header>
+    Friends
+    <%= link_to 'See All', friendships_path(u: user.id) %>
+  </header>
+  <ul>
+    <% user.friends.each do |friend| %>
+      <li>
+        <%= link_to friend do %>
+          <span class="photo"></span>
+          <%= friend.name %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

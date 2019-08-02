@@ -1,0 +1,13 @@
+<% if post.user == current_user %>
+  <div class="action">
+    <%= icon('fas', 'ellipsis-h') %>
+    <div>
+      <%= link_to edit_post_path(post), remote: true, class: 'edit' do %>
+        <%= icon('fas', 'pen') %>Edit
+      <% end %>
+      <%= link_to post, method: :delete, remote: true do %>
+        <%= icon('fas', 'trash') %>Remove
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,36 @@
+<div class="profile">
+  <header>
+    <%= link_to user, class: 'photo' do %>
+    <% end %>
+    <%= link_to user, class: 'name' do %>
+      <%= user.name %>
+    <% end %>
+    <% if user == current_user %>
+      <button class="edit">
+        Edit <%= icon('fas', 'pen') %>
+      </button>
+    <% end %>
+  </header>
+  <section>
+    <p>
+      <span class="label">From</span>
+      <span class="info"></span>
+    </p>
+    <p>
+      <span class="label">Lives in</span>
+      <span class="info"></span>
+    </p>
+    <p>
+      <span class="label">Studied at</span>
+      <span class="info"></span>
+    </p>
+    <p>
+      <span class="label">Works at</span>
+      <span class="info"></span>
+    </p>
+    <p>
+      <span class="label">Interested in</span>
+      <span class="info"></span>
+    </p>
+  </section>
+</div>

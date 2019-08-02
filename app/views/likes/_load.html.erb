@@ -1,0 +1,27 @@
+<%= link_to subject_likes_path(subject), remote: true, class: 'likes-loader' do %>
+  <ul>
+    <% if subject.likes.thumbs.any? %>
+      <li><%= icon('fas', 'thumbs-up') %></li>
+    <% end %>
+    <% if subject.likes.heart.any? %>
+      <li><%= icon('fas', 'heart') %></li>
+    <% end %>
+    <% if subject.likes.clap.any? %>
+      <li><%= icon('fas', 'sign-language') %></li>
+    <% end %>
+    <% if subject.likes.laugh.any? %>
+      <li><%= icon('fas', 'laugh') %></li>
+    <% end %>
+    <% if subject.likes.surprise.any? %>
+      <li><%= icon('fas', 'surprise') %></li>
+    <% end %>
+    <% if subject.likes.angry.any? %>
+      <li><%= icon('fas', 'angry') %></li>
+    <% end %>
+  </ul>
+  <% if subject.likes.any? %>
+    <span class="count">
+      <%= subject.likes.size %>
+    </span>
+  <% end %>
+<% end %>

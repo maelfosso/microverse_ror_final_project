@@ -1,7 +1,18 @@
 <section class="home">
-  <ul>
-    <% @posts.each do |post| %>
-      <%= render 'posts/post', post: post %>
-    <% end %>
-  </ul>
+  <div class="account">
+    <%= render 'profile', user: current_user %>
+    <%= render 'friends', user: current_user %>
+  </div>
+  <div class="post-wrapper">
+    <%= render 'posts/form', post: Post.new %>
+    <ul>
+      <% @posts.each do |post| %>
+        <%= render 'posts/post', post: post %>
+      <% end %>
+    </ul>
+  </div>
+  <div class="news">
+    <%= render 'notifs', user: current_user %>
+    <%= render 'requests', user: current_user %>
+  </div>
 </section>

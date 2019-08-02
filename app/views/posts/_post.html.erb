@@ -1,24 +1,31 @@
-<li class="post">
+<li class="post" data-post-id="<%= post.id %>">
   <header>
-    <%= link_to post.user do %>
+    <%= link_to post.user, class: 'photo' do %>
       <%#= image_tag(post.user.photo_path) %>
     <% end %>
     <%= link_to post.user.name, post.user %>
+    <%= render 'posts/action', post: post %>
   </header>
   <section>
-    <div class="title"><%= post.title %></div>
-    <div class="content"><%= post.content %></div>
-    <div class="load">
-      <%= link_to "Likes", post_likes_path(post), remote: true %>
-      <%= link_to "Comments", post_comments_path(post) %>
+    <pre class="title"><%= post.title %></pre>
+    <pre class="content"><%= post.content %></pre>
+    <div class="loader">
+      <% if post.likes.any? %>
+        <%= render 'likes/load', subject: post %>
+      <% end %>
+      <% if post.comments.any? %>
+        <%= render 'comments/load', subject: post %>
+      <% end %>
     </div>
   </section>
   <footer>
     <div class='reactions'>
-      <%= render 'likes/form', subject: post %>
+      <%= render 'likes/form', subject: post, post: post %>
       <button class="comment"><%= icon('far', 'comment-alt') %> Comment</button>
     </div>
-    <ul class="comment-list"></ul>
-    <%= render 'comments/form', subject: post %>
+    <ul class="comment-list">
+      <%= render 'comments/index', comments: post.comments %>
+    </ul>
+    <%= render 'comments/form', comment: Comment.new, subject: post, post: post %>
   </footer>
 </li>

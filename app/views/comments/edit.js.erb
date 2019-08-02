@@ -1,0 +1,5 @@
+subject = $("<%= data_id @subject %>")
+comment = subject.find("[data-comment-id='<%= @comment.id %>']")
+comment.remove()
+subject.find('.comment-form')
+    .replaceWith("<%= j render 'form', comment: @comment, subject: @subject, post: @comment.post %>")

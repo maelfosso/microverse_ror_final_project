@@ -1,0 +1,20 @@
+<ul>
+  <% if likes.thumbs.any? %>
+    <li><%= icon('fas', 'thumbs-up') %> <%= likes.thumbs.size %></li>
+  <% end %>
+  <% if likes.heart.any? %>
+    <li><%= icon('fas', 'heart') %> <%= likes.heart.size %></li>
+  <% end %>
+  <% if likes.clap.any? %>
+    <li><%= icon('fas', 'sign-language') %> <%= likes.clap.size %></li>
+  <% end %>
+  <% if likes.laugh.any? %>
+    <li><%= icon('fas', 'laugh') %> <%= likes.laugh.size %></li>
+  <% end %>
+  <% if likes.surprise.any? %>
+    <li><%= icon('fas', 'surprise') %> <%= likes.surprise.size %></li>
+  <% end %>
+  <% if likes.angry.any? %>
+    <li><%= icon('fas', 'angry') %> <%= likes.angry.size %></li>
+  <% end %>
+</ul>

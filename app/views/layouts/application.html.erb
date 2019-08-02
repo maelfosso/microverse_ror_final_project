@@ -10,13 +10,10 @@
   </head>
 
   <body>
-    <%= render('layouts/header') if user_signed_in?  %>
+    <%= render('layouts/header') %>
     <main>
-      <% if false %>
-        <aside><%= render('layouts/aside') %></aside>
-      <% end %>
-      <section><%= yield %></section>
+      <%= yield %>
     </main>
-    <div id="like-list"></div>
+    <div id="modal"></div>
   </body>
 </html>

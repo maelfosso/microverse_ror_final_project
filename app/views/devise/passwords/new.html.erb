@@ -1,0 +1,34 @@
+<div class="sessions">
+  <h2>Forgot your password?</h2>
+
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Send me reset password instructions" %>
+    </div>
+  <% end %>
+
+  <div class="separator">
+    <span class="line"></span><span class="text">or</span><span class="line"></span>
+  </div>
+
+  <div class="omniauth">
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <%= link_to "Continue with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
+    <% end %>
+  </div>
+
+  <div class="signup">
+    Have an account? <%= link_to "Sign in", new_session_path(resource_name) %>
+  </div>
+
+  <div class="signup">
+    New to Allbook? <%= link_to "Create an account", new_registration_path(resource_name) %>
+  </div>
+</div>
