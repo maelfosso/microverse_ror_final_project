@@ -12,22 +12,27 @@ class User < ApplicationRecord
   has_many :received_friendships, class_name: 'Friendship',
             foreign_key: 'acceptor_id', dependent: :destroy
 
-  has_many :posts, dependent: :destroy
-  has_many :notifications, dependent: :destroy
+  has_many :posts, -> {order(id: :desc)}, dependent: :destroy
+  has_many :notifications, dependent: :destroy, foreign_key: 'receiver_id'
 
   def friend_requests
-    {sent: requested_friendships.pending.includes(:acceptor)&.map(&:acceptor) || [],
-     received: received_friendships.pending.includes(:requestor)&.map(&:requestor) || []}
+    {sent: requested_friendships.pending.includes(:acceptor).map(&:acceptor),
+     received: received_friendships.pending.includes(:requestor).map(&:requestor)}
   end
 
   def friends
-    (requested_friendships.accepted.includes(:acceptor)&.map(&:acceptor) || []) +
-    (received_friendships.accepted.includes(:requestor)&.map(&:requestor) || [])
+    requested_friendships.accepted.includes(:acceptor).map(&:acceptor) +
+    received_friendships.accepted.includes(:requestor).map(&:requestor)
   end
 
   def friend_posts
-    (requested_friendships.accepted.includes(acceptor: [:posts])&.map(&:acceptor).map(&:posts).flatten! || []) +
-    (received_friendships.accepted.includes(requestor: [:posts]).map(&:requestor).map(&:posts).flatten! || [])
+    requested_friendships.accepted.includes(acceptor: [:posts]).map(&:acceptor).map(&:posts).flatten +
+    received_friendships.accepted.includes(requestor: [:posts]).map(&:requestor).map(&:posts).flatten
+  end
+
+  def friendship(u)
+    Friendship.where("requestor_id = #{id} AND acceptor_id = #{u.id} OR "\
+                     "requestor_id = #{u.id} AND acceptor_id = #{id}").first
   end
 
   def self.new_with_session(param, session)

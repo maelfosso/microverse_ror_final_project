@@ -1,26 +1,26 @@
 class LikesController < ApplicationController
   def index
-    @likes = Post.find(params[:post_id]).likes
+    @likes = path_to_subject(request, params).likes
   end
 
   def create
-    @like = Like.new(like_params)
-    if @like.save
-      sendNotification(params[:subject_author_id], current_user,
-                       'like', comment_params[:subject_type])
+    @subject = params[:subject_type].constantize.find(params[:subject_id])
+    if @like = @subject.likes.create(user_id: current_user.id, kind: params[:kind], post_id: params[:post_id])
+      sendNotification(@subject.user, 'like', @like)
     else
       flash.now[:error] = 'An error occured!'
     end
-    redirect_to root_path
   end
 
   def update
     @like = Like.find(params[:id])
-    flash.now[:error] = 'An error occured!' unless @like.update(like_params)
-    redirect_to root_path
+    @subject = @like.subject
+    flash.now[:error] = 'An error occured!' unless @like.update(kind: params[:kind])
   end
 
-  def like_params
-    params.permit(:user_id, :subject_id, :subject_type, :kind)
+  def destroy
+    @like = Like.find(params[:id])
+    @subject = @like.subject
+    flash.now[:error] = 'An error occured!' unless @like.destroy
   end
 end

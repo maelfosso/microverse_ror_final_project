@@ -7,6 +7,7 @@ class CreateComments < ActiveRecord::Migration[5.2]
       t.text :content, null: false
       t.references :subject, polymorphic: true, index: true
       t.references :user, foreign_key: { to_table: :users }, index: true
+      t.references :post, foreign_key: { to_table: :posts }, index: true
 
       t.timestamps
     end

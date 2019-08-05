@@ -1,3 +1,141 @@
 // Place all the styles related to the Session controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.sessions {
+  flex: auto;
+  max-width: 350px;
+  margin-top: 10px;
+  padding: 15px 20px;
+  align-self: center;
+  border-radius: 5px;
+  background: #fefeff;
+  border: 1px solid #1c066f;
+
+  a {
+    color: #1c066f;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  h2 {
+    color: #222;
+    margin: 0 0 30px;
+    font-size: 1.6em;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  form {
+    .field {
+      margin-bottom: 10px;
+
+      label {
+        display: block;
+      }
+
+      &:not(.checkbox) {
+        label {
+          font-size: 1.2em;
+          font-weight: 300;
+          margin-bottom: 5px;
+        }
+      }
+
+      &.checkbox {
+        display: flex;
+
+        input {
+          margin-right: 5px;
+          border-radius: 50%;
+        }
+      }
+
+      input:not([type=checkbox]) {
+        width: 100%;
+        padding: 7px;
+        display: block;
+        border-radius: 2px;
+        border: 1px solid #555;
+      }
+
+      .password {
+        display: flex;
+        align-items: end;
+        margin-bottom: 5px;
+
+        label {
+          flex: auto;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+
+      input {
+        flex: auto;
+        border: none;
+        padding: 5px;
+        color: #fff;
+        max-width: 50%;
+        cursor: pointer;
+        border-radius: 2px;
+        background: #775500;
+
+        &:hover {
+          background: #664900;
+        }
+      }
+    }
+  }
+
+  .separator {
+    width: 40%;
+    color: #444;
+    display: flex;
+    margin: 15px auto;
+    align-items: center;
+
+    .line {
+      flex: auto;
+      border-top: 1px solid #555;
+    }
+
+    .text {
+      top: -0.2em;
+      padding: 0 5px;
+      line-height: 1;
+      position: relative;
+      vertical-align: text-top;
+    }
+  }
+
+  .omniauth {
+    a {
+      width: 50%;
+      margin: auto;
+      padding: 5px;
+      color: #fff;
+      display: block;
+      text-align: center;
+      border-radius: 2px;
+      background: #0c339f;
+
+      &:hover {
+        background: #0b2e8d;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .signup {
+    margin-top: 30px;
+    text-align: center;
+  }
+}
