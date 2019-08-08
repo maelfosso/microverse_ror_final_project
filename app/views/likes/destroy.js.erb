@@ -22,3 +22,4 @@ if ($loader.length == 0) {
 $choice.addClass('default')
 $choice.html("<%= j render 'new', subject: @subject, post: @like.post, kind: 'thumbs' %>")
 $kinds.html("<%= j render 'kinds', form: 'new', locals: {subject: @subject, post: @like.post} %>")
+$('#preload').hide()

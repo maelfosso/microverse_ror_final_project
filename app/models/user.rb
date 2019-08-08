@@ -49,7 +49,10 @@ class User < ApplicationRecord
     where(auth.slice(:provider, :uid)).first_or_create do |user|
       user.name = auth.info.name
       user.email = auth.info.email
+      user.gender = auth.info.gender
       user.photo_path = auth.info.image
+      user.date_of_birth = auth.info.birthday
+      user.nationality = auth.info.address.name
       user.password = Devise.friendly_token[0, 20]
       user.username = auth.info.name.delete(" ").downcase
     end

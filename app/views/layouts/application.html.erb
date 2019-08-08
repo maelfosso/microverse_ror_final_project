@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Allbook</title>
+    <title>EarthDiary</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -15,8 +15,6 @@
       <%= yield %>
     </main>
     <div id="modal"></div>
-    <div id="preload">
-      <%= image_tag 'preload.gif' %>
-    </div>
+    <%= image_tag 'preload.gif', id: 'preload' %>
   </body>
 </html>

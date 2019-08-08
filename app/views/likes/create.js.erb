@@ -22,3 +22,4 @@ if ($loader.length == 0) {
 $choice.removeClass('default')
 $choice.html("<%= j render 'destroy', like: @like %>")
 $kinds.html("<%= j render 'kinds', form: 'edit', locals: {like: @like} %>")
+$('#preload').hide()

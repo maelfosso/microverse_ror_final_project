@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'turbolinks:load', ->
-  $('body').on 'click', '> header .account > i', ->
+  $('body').on 'click', '> header .account', ->
     $('body > header .account > ul').toggleClass('show')
   $('body').on 'click', (e) ->
     if !$(e.target).closest('body > header .account').length

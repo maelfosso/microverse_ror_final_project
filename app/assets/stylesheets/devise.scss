@@ -200,11 +200,29 @@
     }
   }
 
-  #error-explanation {
-    background: #ef5;
+  #error_explanation {
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #f00;
 
     h2 {
+      padding: 5px;
+      margin: 0 0 5px;
       font-size: initial;
+    }
+
+    ul {
+      padding: 5px;
+
+      li {
+        padding: 5px;
+        background: #fdd;
+        border-radius: 5px;
+
+        &:not(:last-child) {
+          margin-bottom: 5px;
+        }
+      }
     }
   }
 }

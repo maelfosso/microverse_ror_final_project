@@ -19,6 +19,11 @@
       <%= f.text_field :username, autocomplete: "username" %>
     </div>
 
+    <div class="field">
+      <%= f.label :photo_path, 'Photo' %>
+      <%= f.text_field :photo_path, placeholder: 'Enter the url of your photo', autocomplete: "username" %>
+    </div>
+
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>

@@ -25,3 +25,4 @@ if ("<%= @subject.class.name %>" == 'Post') {
 
 $list.append("<%= j render 'comment', comment: @comment %>")
 $form.replaceWith("<%= j render 'form', comment: Comment.new, subject: @subject, post: @comment.post %>")
+$('#preload').hide()
