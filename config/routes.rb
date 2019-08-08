@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:index]
   end
 
-  resources :comments, only: [:create, :edit, :update, :destroy] do
+  resources :comments, only: [:new, :create, :edit, :update, :destroy] do
     resources :likes, only: [:index]
     resources :comments, only: [:index], path: 'replies'
   end
@@ -22,4 +22,6 @@ Rails.application.routes.draw do
   resources :friendships, only: [:index, :create, :update, :destroy], path: 'f'
 
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
+
+  get '*path', to: redirect('/')
 end

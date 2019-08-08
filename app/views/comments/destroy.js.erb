@@ -1,5 +1,4 @@
-subject = $("<%= data_id @subject %>")
-subject.find('.comments-loader')
+$subject = $("<%= data_id @subject %>")
+$subject.find('.comments-loader')
     .replaceWith("<%= j render 'load', subject: @subject %>")
-comment = subject.find("[data-comment-id='<%= @comment.id %>']")
-comment.remove()
+$subject.find("[data-comment-id='<%= @comment.id %>']").remove()

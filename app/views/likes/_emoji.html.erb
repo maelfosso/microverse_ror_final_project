@@ -1,20 +1,22 @@
 <ul>
-  <% if likes.thumbs.any? %>
-    <li><%= icon('fas', 'thumbs-up') %> <%= likes.thumbs.size %></li>
+  <% h = Hash.new(0) %>
+  <% likes.each { |l| h[l.kind] += 1 } %>
+  <% if h['thumbs'] > 0 %>
+    <li><%= icon('fas', 'thumbs-up') %> <%= h['thumbs'] %></li>
   <% end %>
-  <% if likes.heart.any? %>
-    <li><%= icon('fas', 'heart') %> <%= likes.heart.size %></li>
+  <% if h['heart'] > 0 %>
+    <li><%= icon('fas', 'heart') %> <%= h['heart'] %></li>
   <% end %>
-  <% if likes.clap.any? %>
-    <li><%= icon('fas', 'sign-language') %> <%= likes.clap.size %></li>
+  <% if h['clap'] > 0 %>
+    <li><%= icon('fas', 'sign-language') %> <%= h['clap'] %></li>
   <% end %>
-  <% if likes.laugh.any? %>
-    <li><%= icon('fas', 'laugh') %> <%= likes.laugh.size %></li>
+  <% if h['laugh'] > 0 %>
+    <li><%= icon('fas', 'laugh') %> <%= h['laugh'] %></li>
   <% end %>
-  <% if likes.surprise.any? %>
-    <li><%= icon('fas', 'surprise') %> <%= likes.surprise.size %></li>
+  <% if h['surprise'] > 0 %>
+    <li><%= icon('fas', 'surprise') %> <%= h['surprise'] %></li>
   <% end %>
-  <% if likes.angry.any? %>
-    <li><%= icon('fas', 'angry') %> <%= likes.angry.size %></li>
+  <% if h['angry'] > 0 %>
+    <li><%= icon('fas', 'angry') %> <%= h['angry'] %></li>
   <% end %>
 </ul>

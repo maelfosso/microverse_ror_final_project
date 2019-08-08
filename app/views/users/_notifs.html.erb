@@ -6,7 +6,7 @@
   <ul>
     <% user.notifications.each do |notif| %>
       <li>
-        <%= link_to notif.subject.post || notif.subject do %>
+        <%= link_to notif.subject.respond_to?(:post) ? notif.subject.post : notif.sender do %>
           <span class="photo"></span>
           <%= notif.content %>
         <% end %>

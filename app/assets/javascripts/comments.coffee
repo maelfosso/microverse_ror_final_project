@@ -18,8 +18,19 @@ $(document).on 'turbolinks:load',  ->
       $(textarea.form).on 'ajax:error', ->
         textarea.readOnly = false
 
-  $('body').on 'click', '.comment-list .hide', ->
-    $(this.parentNode.parentNode).hide()
+  $('body').on 'click', '.hide-comments', ->
+    $parent = $(this.parentNode.parentNode)
+    $parent.hide()
+    $prev = $parent.prev()
+    $prev.show() if $prev.hasClass('show-replies')
 
-  $('body').on 'click', '.post button.comment', (e) ->
+  $('body').on 'click', '.post button.comment', ->
     $(this.parentNode.parentNode).find('textarea').focus()
+
+  $('body').on 'click', '.post', (e) ->
+    if $(e.target).hasClass('reply')
+      $(this).find('.comment-list .comment-form').addClass('hide')
+      $form = $(e.target.parentNode).next().find('>.comment-form')
+      $form.removeClass('hide')
+      $form.find('textarea').focus()
+

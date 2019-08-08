@@ -3,34 +3,38 @@
     <%= link_to user, class: 'photo' do %>
     <% end %>
     <%= link_to user, class: 'name' do %>
-      <%= user.name %>
+      <%= user.username %>
     <% end %>
     <% if user == current_user %>
-      <button class="edit">
+      <%= link_to edit_user_registration_path, class: 'edit' do %>
         Edit <%= icon('fas', 'pen') %>
-      </button>
+      <% end %>
     <% end %>
   </header>
   <section>
-    <p>
-      <span class="label">From</span>
-      <span class="info"></span>
-    </p>
-    <p>
-      <span class="label">Lives in</span>
-      <span class="info"></span>
-    </p>
-    <p>
-      <span class="label">Studied at</span>
-      <span class="info"></span>
-    </p>
-    <p>
-      <span class="label">Works at</span>
-      <span class="info"></span>
-    </p>
-    <p>
-      <span class="label">Interested in</span>
-      <span class="info"></span>
-    </p>
+    <% if user.name %>
+      <p>
+        <span class="label">Name</span>
+        <span class="info"><%= user.name %></span>
+      </p>
+    <% end %>
+    <% if user.gender %>
+      <p>
+        <span class="label">Gender</span>
+        <span class="info"><%= user.gender %></span>
+      </p>
+    <% end %>
+    <% if user.date_of_birth %>
+      <p>
+        <span class="label">Date of birth</span>
+        <span class="info"><%= user.date_of_birth %></span>
+      </p>
+    <% end %>
+    <% if user.nationality %>
+      <p>
+        <span class="label">From</span>
+        <span class="info"><%= user.nationality %></span>
+      </p>
+    <% end %>
   </section>
 </div>

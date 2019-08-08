@@ -27,7 +27,7 @@ class FriendshipsController < ApplicationController
     else
       flash.now[:error] = 'An error occured!'
     end
-    redirect_to users_url
+    redirect_to friendships_path(s: 's')
   end
 
   def update
@@ -37,13 +37,13 @@ class FriendshipsController < ApplicationController
     else
       flash.now[:error] = 'An error occured!'
     end
-    redirect_to users_url
+    redirect_to friendships_path(u: current_user.id)
   end
 
   def destroy
     @friendship = Friendship.find(params[:id])
     @friendship.destroy
-    redirect_to users_url
+    redirect_to users_path
   end
 
   def friendship_params

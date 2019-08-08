@@ -276,6 +276,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  faraday
   font-awesome-sass (~> 5.9.0)
   jbuilder (~> 2.5)
   jquery-rails

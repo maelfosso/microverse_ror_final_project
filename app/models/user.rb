@@ -12,8 +12,10 @@ class User < ApplicationRecord
   has_many :received_friendships, class_name: 'Friendship',
             foreign_key: 'acceptor_id', dependent: :destroy
 
-  has_many :posts, -> {order(id: :desc)}, dependent: :destroy
+  has_many :posts, -> {includes(:likes, :comments).order(id: :desc)}, dependent: :destroy
   has_many :notifications, dependent: :destroy, foreign_key: 'receiver_id'
+
+  validates :username, presence: true
 
   def friend_requests
     {sent: requested_friendships.pending.includes(:acceptor).map(&:acceptor),
@@ -26,8 +28,8 @@ class User < ApplicationRecord
   end
 
   def friend_posts
-    requested_friendships.accepted.includes(acceptor: [:posts]).map(&:acceptor).map(&:posts).flatten +
-    received_friendships.accepted.includes(requestor: [:posts]).map(&:requestor).map(&:posts).flatten
+    requested_friendships.accepted.includes(acceptor: [posts: [:likes, :comments]]).map(&:acceptor).map(&:posts).flatten +
+    received_friendships.accepted.includes(requestor: [posts: [:likes, :comments]]).map(&:requestor).map(&:posts).flatten
   end
 
   def friendship(u)

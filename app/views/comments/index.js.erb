@@ -1,3 +1,12 @@
-list = $("<%= data_id @subject %> .comment-list")
-list.html("<%= j render 'index', comments: @comments %>")
-list.show()
+$subject = $("<%= data_id @subject %>")
+
+if ("<%= @subject.class.name %>" == 'Post') {
+  $list = $subject.find('> footer > .comment-list')
+  $list.show()
+} else {
+  $list = $subject.find('> .replies > .comment-list')
+  $list.removeClass('hide')
+  $subject.find("> .replies .show-replies").hide()
+}
+
+$list.html("<%= j render 'index', subject: @subject %>")

@@ -22,63 +22,28 @@
   }
 
   ul {
-    padding: 20px;
-
     li {
-      padding: 2px;
-      display: flex;
-      border-radius: 2px;
-      align-items: center;
-      border: 1px solid #ccc;
+      &:not(:last-child) {
+        border-bottom: 1px solid #ccc;
+      }
 
       a {
-        color: #1300a3;
+        padding: 5px;
+        display: flex;
+        color: #000;
+        align-items: center;
         text-decoration: none;
 
         &:hover {
-          text-decoration: underline;
+          background: #faf9ff;
         }
 
-        &.photo {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          margin-right: 10px;
+        .photo {
+          width: 50px;
+          height: 50px;
           background: #eee;
-        }
-
-        &.name {
-          flex: auto;
-        }
-
-        &.delete,
-        &.confirm,
-        &.addfriend {
-          padding: 5px;
-          display: flex;
-          font-weight: 600;
-          font-size: 0.95em;
-          margin-right: 5px;
-          border-radius: 2px;
-          align-items: center;
-          text-decoration: none;
-          justify-content: center;
-
-          i {
-            font-size: 0.8em;
-            margin-right: 2px;
-          }
-        }
-
-        &.delete {
-          color: #222;
-          background: #e7e7e7;
-        }
-
-        &.confirm,
-        &.addfriend {
-          color: #fff;
-          background: #1300a3;
+          margin-right: 10px;
+          border-radius: 50%;
         }
       }
     }

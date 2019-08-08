@@ -4,7 +4,7 @@
       <%#= image_tag(post.user.photo_path) %>
     <% end %>
     <%= link_to post.user.name, post.user %>
-    <%= render 'posts/action', post: post %>
+    <%= render 'posts/action', user: post.user, post: post %>
   </header>
   <section>
     <pre class="title"><%= post.title %></pre>
@@ -24,7 +24,7 @@
       <button class="comment"><%= icon('far', 'comment-alt') %> Comment</button>
     </div>
     <ul class="comment-list">
-      <%= render 'comments/index', comments: post.comments %>
+      <%= render 'comments/index', subject: post %>
     </ul>
     <%= render 'comments/form', comment: Comment.new, subject: post, post: post %>
   </footer>

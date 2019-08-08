@@ -7,7 +7,9 @@
       <%= comment.user.name %>
     <% end %>
     <pre><%= comment.content %></pre>
-    <%= render 'likes/load', subject: comment %>
+    <% if comment.likes.any? %>
+      <%= render 'likes/load', subject: comment %>
+    <% end %>
   </div>
   <%= render 'comments/action', comment: comment %>
   <div class="reactions">
@@ -15,9 +17,10 @@
     <button class="reply">Reply</button>
   </div>
   <div class="replies">
-    <ul class="comment-list">
-      <%= render 'comments/index', comments: comment.comments %>
-    </ul>
+    <% if comment.comments.any? %>
+      <%= link_to 'View all replies', comment_comments_path(comment), remote: true, class: 'show-replies' %>
+    <% end %>
+    <ul class="comment-list hide"></ul>
     <%= render 'comments/form', comment: Comment.new, subject: comment, post: comment.post %>
   </div>
 </li>

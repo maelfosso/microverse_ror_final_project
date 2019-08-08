@@ -81,7 +81,7 @@ button.comment {
     align-items: start;
     margin-bottom: 10px;
 
-    .hide {
+    .hide-comments {
       cursor: pointer;
       color: #1300a3;
 
@@ -100,7 +100,7 @@ button.comment {
 
     .content {
       flex: auto;
-      padding: 10px;
+      padding: 5px 10px;
       position: relative;
       border-radius: 20px;
       background: #f4f6ff;
@@ -124,10 +124,10 @@ button.comment {
       .likes-loader {
         top: 80%;
         right: 0;
+        padding: 0 5px 2px;
         position: absolute;
         background: #fff;
         border-radius: 15px;
-        padding: 2px 5px 5px;
         border: 1px solid #ddd;
 
         >ul {
@@ -199,20 +199,44 @@ button.comment {
       }
 
       .reply {
+        margin: 0;
         border: none;
+        padding: 0 5px;
+        font-size: 1em;
         line-height: 1;
         cursor: pointer;
         color: #1300a3;
         background: none;
-        font-size: inherit;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
     .replies {
       flex: auto;
+      margin: 5px 0;
       max-width: 95%;
       margin-left: 5%;
-      margin-top: 10px;
+
+      .comment-list,
+      .comment-form {
+        &.hide {
+          display: none;
+        }
+      }
+
+      .hide-comments {
+        font-style: italic;
+      }
+
+      .show-replies {
+        color: #1300a3;
+        margin: 0 0 5px 5%;
+        font-style: italic;
+        display: inline-block;
+      }
     }
   }
 }

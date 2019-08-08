@@ -8,7 +8,7 @@
     <ul>
       <% @notifs.each do |notif| %>
         <li>
-          <%= link_to notif.sender do %>
+          <%= link_to notif.subject.respond_to?(:post) ? notif.subject.post : notif.sender do %>
             <span class="photo">
             </span>
             <%= notif.content %>

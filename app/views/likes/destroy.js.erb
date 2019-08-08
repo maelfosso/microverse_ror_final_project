@@ -1,9 +1,24 @@
 $subject = $("<%= data_id @subject %>")
-loader = $subject.find('.likes-loader')
-if (loader.length == 0)
-  $subject.find('.loader').prepend("<%= j render 'load', subject: @subject %>")
-else
-  loader.replaceWith("<%= j render 'load', subject: @subject %>")
-$subject.find('.choice').addClass('default')
-$subject.find('.choice').html("<%= j render 'new', subject: @subject, post: @like.post, kind: 'thumbs' %>")
-$subject.find('.like-form .kinds').html("<%= j render 'kinds', form: 'new', locals: {subject: @subject, post: @like.post} %>")
+
+if ("<%= @subject.class.name %>" == 'Post') {
+  $loader = $subject.find('.loader .likes-loader')
+  $choice = $subject.find(' > footer > .reactions .like-form .choice')
+  $kinds = $subject.find(' > footer > .reactions .like-form .kinds')
+} else {
+  $loader = $subject.find(' > .content .likes-loader')
+  $choice = $subject.find(' > .reactions .like-form .choice')
+  $kinds = $subject.find(' > .reactions .like-form .kinds')
+}
+
+if ($loader.length == 0) {
+  if ("<%= @subject.class.name %>" == 'Post')
+    $subject.find('.loader').prepend("<%= j render 'load', subject: @subject %>")
+  else
+    $subject.find('> .content').append("<%= j render 'load', subject: @subject %>")
+} else {
+  $loader.replaceWith("<%= j render 'load', subject: @subject %>")
+}
+
+$choice.addClass('default')
+$choice.html("<%= j render 'new', subject: @subject, post: @like.post, kind: 'thumbs' %>")
+$kinds.html("<%= j render 'kinds', form: 'new', locals: {subject: @subject, post: @like.post} %>")

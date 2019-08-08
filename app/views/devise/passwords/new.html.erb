@@ -1,4 +1,4 @@
-<div class="sessions">
+<div class="devise">
   <h2>Forgot your password?</h2>
 
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
@@ -24,11 +24,11 @@
     <% end %>
   </div>
 
-  <div class="signup">
+  <div class="login">
     Have an account? <%= link_to "Sign in", new_session_path(resource_name) %>
   </div>
 
-  <div class="signup">
+  <div class="logout">
     New to Allbook? <%= link_to "Create an account", new_registration_path(resource_name) %>
   </div>
 </div>

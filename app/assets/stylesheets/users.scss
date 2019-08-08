@@ -3,7 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .home,
 .show {
-  flex: auto;
   display: flex;
   padding: 10px 0;
   justify-content: center;
@@ -54,19 +53,20 @@
       display: flex;
       position: relative;
       align-items: center;
+      flex-direction: column;
 
       a {
         text-decoration: none;
 
         &.photo {
-          width: 80px;
-          height: 80px;
-          margin-right: 10px;
+          width: 150px;
+          height: 150px;
           border-radius: 50%;
           background: #eee;
         }
 
         &.name {
+          margin-top: 5px;
           color: #1300a3;
           font-weight: 600;
         }
@@ -75,12 +75,9 @@
       .edit {
         top: 0;
         right: 0;
-        border: none;
         color: #444;
         display: flex;
-        cursor: pointer;
         font-size: 0.9em;
-        background: none;
         padding: 4px 10px;
         position: absolute;
         border-radius: 2px;
@@ -102,12 +99,12 @@
         display: flex;
 
         .label {
-          font-weight: 600;
-          margin-right: 5px;
+          margin: 0 5px;
         }
 
         .info {
           flex: auto;
+          font-weight: 300;
         }
       }
     }

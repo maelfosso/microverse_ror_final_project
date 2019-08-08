@@ -26,7 +26,16 @@
         <li class="account">
           <%= icon('fas', 'chevron-down') %>
           <ul>
-            <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <%= icon('fas', 'sign-out-alt') %>Log out
+              <% end %>
+            </li>
+            <li>
+              <%= link_to edit_user_registration_path do %>
+                <%= icon('fas', 'user-cog') %>Settings
+              <% end %>
+            </li>
           </ul>
         </li>
       </ul>

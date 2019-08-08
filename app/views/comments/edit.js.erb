@@ -1,5 +1,19 @@
-subject = $("<%= data_id @subject %>")
-comment = subject.find("[data-comment-id='<%= @comment.id %>']")
-comment.remove()
-subject.find('.comment-form')
-    .replaceWith("<%= j render 'form', comment: @comment, subject: @subject, post: @comment.post %>")
+$subject = $("<%= data_id @subject %>")
+$subject.find("[data-comment-id='<%= @comment.id %>']").remove()
+
+if ("<%= @subject.class.name %>" == 'Post') {
+  $form = $subject.find('> footer > .comment-form')
+} else {
+  $form = $subject.find('> .replies > .comment-form')
+}
+
+$form.replaceWith("<%= j render 'form', comment: @comment, subject: @subject, post: @comment.post %>")
+
+if ("<%= @subject.class.name %>" == 'Post') {
+  $form = $subject.find('> footer > .comment-form')
+} else {
+  $form = $subject.find('> .replies > .comment-form')
+  $form.removeClass('hide')
+}
+
+$form.find('textarea').focus()

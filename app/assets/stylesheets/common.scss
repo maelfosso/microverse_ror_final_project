@@ -165,10 +165,9 @@ body {
               right: 0;
               top: 100%;
               z-index: 1;
+              padding: 0;
               display: none;
-              padding: 5px 0;
               cursor: default;
-              min-width: 100px;
               position: absolute;
               background: #fff;
               border-radius: 2px;
@@ -182,13 +181,18 @@ body {
               a {
                 color: #000;
                 font-weight: 400;
-                padding: 5px 20px;
+                padding: 5px 15px;
                 white-space: nowrap;
                 text-decoration: none;
 
+                i {
+                  top: 1px;
+                  margin-right: 5px;
+                  position: relative;
+                }
+
                 &:hover {
                   background: #eeebff;
-                  ;
                 }
               }
             }
@@ -231,13 +235,11 @@ body {
 
   >main {
     flex: auto;
-    display: flex;
+    padding: 10px;
     overflow: auto;
-    align-items: start;
-    justify-content: center;
 
     >.post-wrapper {
-      margin-top: 20px;
+      margin: 10px auto;
 
       .comment-list {
         display: block;
@@ -273,6 +275,22 @@ body {
 
     .post-form {
       width: 37.5%;
+    }
+  }
+
+  #preload {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .7);
+
+    img {
+      width: 50px;
     }
   }
 }
