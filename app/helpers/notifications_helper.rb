@@ -1,7 +1,7 @@
 module NotificationsHelper
   def sendNotification(receiver, action, subject)
     if receiver != current_user
-      content = "#{current_user.name} " +
+      content = "#{current_user.username} " +
         case action
         when 'like' then "liked your #{subject.subject.class.name.downcase!}"
         when 'comment'
