@@ -52,7 +52,6 @@ class User < ApplicationRecord
       user.gender = auth.info.gender
       user.photo_path = auth.info.image
       user.date_of_birth = auth.info.birthday
-      user.password = Devise.friendly_token[0, 20]
       user.username = user.name.delete(" ").downcase
     end
   end

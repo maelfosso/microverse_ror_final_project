@@ -79,9 +79,9 @@ ActiveRecord::Schema.define(version: 2019_07_12_021946) do
     t.string "name"
     t.binary "photo"
     t.string "gender"
+    t.string "username"
     t.date "date_of_birth"
     t.string "nationality"
-    t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false

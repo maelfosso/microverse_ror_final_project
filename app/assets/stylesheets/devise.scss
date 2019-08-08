@@ -81,7 +81,7 @@
       }
 
       select,
-      input:not([type=checkbox]) {
+      input:not([type=checkbox]):not([type=radio]) {
         width: 100%;
         padding: 5px;
         display: block;
