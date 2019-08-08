@@ -1,7 +1,8 @@
 <div class="post-form">
   <header>Create Post</header>
   <section>
-    <%= link_to current_user do %>
+    <%= link_to current_user, class: 'photo' do %>
+      <%= image_tag(photo_path(current_user)) %>
     <% end %>
     <%= form_with model: post do |f| %>
       <div class='title'>
