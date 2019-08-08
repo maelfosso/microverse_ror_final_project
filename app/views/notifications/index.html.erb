@@ -10,6 +10,7 @@
         <li>
           <%= link_to notif.subject.respond_to?(:post) ? notif.subject.post : notif.sender do %>
             <span class="photo">
+              <%= image_tag(photo_path(notif.sender)) %>
             </span>
             <%= notif.content %>
           <% end %>

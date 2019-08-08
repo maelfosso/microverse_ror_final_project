@@ -1,6 +1,7 @@
 <div class="profile">
   <header>
     <%= link_to user, class: 'photo' do %>
+      <%= image_tag(photo_path(user)) %>
     <% end %>
     <%= link_to user, class: 'name' do %>
       <%= user.username %>

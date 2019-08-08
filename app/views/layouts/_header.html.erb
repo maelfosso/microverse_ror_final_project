@@ -6,7 +6,7 @@
         <li>
           <%= link_to current_user, class: 'profile-link' do %>
             <span class="photo">
-              <%#= image_tag(current_user.photo_path) %>
+              <%= image_tag(photo_path(current_user)) %>
             </span>
             <%= current_user.username || (current_user.name && current_user.name.split[0]) %>
           <% end %>

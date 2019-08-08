@@ -1,5 +1,7 @@
 <%= form_with model: comment, class: 'comment-form hide' do |f| %>
-  <span class='photo'><%#= image_tag() %></span>
+  <span class='photo'>
+    <%= image_tag(photo_path(current_user)) %>
+  </span>
   <div class='comment-box'>
     <pre class="shadow"></pre>
     <%= f.text_area :content, placeholder: 'Write a comment', rows: 1 %>

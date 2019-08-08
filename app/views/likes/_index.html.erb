@@ -7,6 +7,7 @@
     <% @likes.each do |like| %>
       <li>
         <%= link_to like.user, class: 'photo' do %>
+          <%= image_tag(photo_path(like.user)) %>
           <%= icon('fas', like_icon(like.kind)) %>
         <% end %>
         <%= link_to like.user, class: 'user-link' do %>

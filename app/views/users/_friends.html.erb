@@ -7,7 +7,9 @@
     <% user.friends.each do |friend| %>
       <li>
         <%= link_to friend do %>
-          <span class="photo"></span>
+          <span class="photo">
+            <%= image_tag(photo_path(friend)) %>
+          </span>
           <%= friend.name %>
         <% end %>
       </li>

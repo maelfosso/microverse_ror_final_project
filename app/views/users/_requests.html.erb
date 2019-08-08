@@ -7,7 +7,9 @@
     <% user.friend_requests[:received].each do |requestor| %>
       <li>
         <%= link_to do %>
-          <span class="photo"></span>
+          <span class="photo">
+            <%= image_tag(photo_path(requestor)) %>
+          </span>
           <%= requestor.name %>
         <% end %>
       </li>

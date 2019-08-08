@@ -1,7 +1,7 @@
 <li class="post" data-post-id="<%= post.id %>">
   <header>
     <%= link_to post.user, class: 'photo' do %>
-      <%#= image_tag(post.user.photo_path) %>
+      <%= image_tag(photo_path(post.user)) %>
     <% end %>
     <%= link_to post.user.name, post.user %>
     <%= render 'posts/action', user: post.user, post: post %>

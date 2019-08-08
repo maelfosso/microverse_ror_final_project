@@ -1,6 +1,6 @@
 <li data-comment-id="<%= comment.id %>">
   <%= link_to comment.user, class: 'photo' do %>
-    <%#= image_tag %>
+    <%= image_tag(photo_path(comment.user)) %>
   <% end %>
   <div class="content">
     <%= link_to comment.user do %>

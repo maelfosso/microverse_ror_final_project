@@ -6,6 +6,7 @@ FactoryBot.define do
     password { Faker::Internet.password }
     username { name.delete(' ').downcase }
     email { "#{username}@microverse.com" }
+    photo_path {"avatars/#{rand 1..4}.png"}
   end
 
   factory :friendship do
