@@ -111,11 +111,10 @@
       justify-content: center;
 
       input {
-        flex: auto;
         border: none;
         padding: 5px;
         color: #fff;
-        max-width: 50%;
+        min-width: 50%;
         cursor: pointer;
         border-radius: 2px;
         background: #775500;
