@@ -13,13 +13,12 @@ if ($loader.length == 0)
 else
   $loader.replaceWith("<%= j render 'load', subject: @subject %>")
 
-if ("<%= @subject.class.name %>" == 'Post') {
+if ("<%= @subject.class.name %>" == 'Post')
   $list = $subject.find('> footer > .comment-list')
-  $list.show()
-} else {
+else
   $list = $subject.find('> .replies > .comment-list')
-  $list.removeClass('hide')
-}
 
+$list.show()
+$list.removeClass('hide')
 $list.append("<%= j render 'comment', comment: @comment %>")
 $('#preload').hide()

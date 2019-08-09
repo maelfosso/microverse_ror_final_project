@@ -8,6 +8,6 @@ $(document).on 'turbolinks:load',  ->
 
   $('#preload').hide()
 
-  $('body').on 'ajax:send', -> $('#preload').show()
   $("boy").on 'submit', -> $('#preload').show()
+  $('body').on 'ajax:send', -> $('#preload').show()
   $("a[href]:not([href*='#'])").on 'click', -> $('#preload').show()
