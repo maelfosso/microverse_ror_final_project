@@ -13,6 +13,7 @@ RSpec.feature 'Post creation' do
 		fill_in "post_content", with: "Some more content"
 		click_on "Share"
 
+		find('.post')
 		visit user_path(@user)
 
 		expect(page).to have_content "Some more content"
