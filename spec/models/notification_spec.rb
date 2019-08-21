@@ -21,23 +21,33 @@ RSpec.describe Notification, type: :model do
     end
   end
 
-  describe '#author' do
-    it 'is has an author' do
-      should validate_presence_of(:user)
+  describe '#sender' do
+    it 'must have a sender' do
+      should validate_presence_of(:sender)
     end
 
-    it 'belongs an author' do
-      should belong_to(:user)
+    it 'belongs to a sender' do
+      should belong_to(:sender)
+    end
+  end
+
+  describe '#receiver' do
+    it 'must have a receiver' do
+      should validate_presence_of(:receiver)
     end
 
-    it 'must have an user' do
-      notif.user = nil
-      notif.save
-      expect(notif.errors[:user]).to be_present
+    it 'belongs to a receiver' do
+      should belong_to(:receiver)
+    end
+  end
 
-      notif.user = build(:user)
-      notif.save
-      expect(notif.errors[:user]).to_not be_present
+  describe '#subject' do
+    it 'must have a subject' do
+      should validate_presence_of(:subject)
+    end
+
+    it 'belongs to a subject' do
+      should belong_to(:subject)
     end
   end
 end

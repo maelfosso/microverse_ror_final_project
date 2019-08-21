@@ -41,8 +41,8 @@ RSpec.describe User, type: :model do
 
     context 'with accepted status' do
       before(:each) do
-        friendship2.accept
-        friendship3.accept
+        friendship2.accepted!
+        friendship3.accepted!
       end
 
       it 'shows friends' do
