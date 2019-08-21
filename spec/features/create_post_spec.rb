@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Post creation', type: :feature do
+RSpec.feature 'Post creation', type: :feature, js: true do
 	before do
 		@user = create(:user)
 		login_as @user 
@@ -11,7 +11,7 @@ RSpec.feature 'Post creation', type: :feature do
 		
 		fill_in "post_title", with: "Some more text"
 		fill_in "post_content", with: "Some more content"
-		click_on "Share"
+		click_on "Share", xhr: true
 		
 		visit users_path(@user)
 
