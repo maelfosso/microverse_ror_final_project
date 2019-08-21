@@ -65,8 +65,11 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-  config.extend ControllerMacros, :type => :controller
-  config.include Devise::Test::ControllerHelpers, :type => :controller
+  # config.extend ControllerMacros, :type => :controller
+  # config.include Devise::Test::ControllerHelpers, :type => :controller
+
+  # Add Warden for logging ins users for testing
+  config.include Warden::Test::Helpers
 end
 
 Shoulda::Matchers.configure do |config|
