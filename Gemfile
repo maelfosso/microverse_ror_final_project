@@ -76,7 +76,7 @@ group :test do
   gem 'chromedriver-helper'
 
   gem 'rspec-collection_matchers'
-  # gem 'database_cleaner'
+  gem 'database_cleaner'
 end
 
 gem 'faker'
