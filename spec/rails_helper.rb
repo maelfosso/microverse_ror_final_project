@@ -104,4 +104,7 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-Capybara.javascript_driver = :webkit
+Capybara.configure do |config|
+  config.default_max_wait_time = 5
+  config.javascript_driver = :webkit
+end
