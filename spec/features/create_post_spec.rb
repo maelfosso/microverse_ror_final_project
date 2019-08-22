@@ -7,15 +7,18 @@ RSpec.feature 'Post creation' do
 		login_as @user
 	end
 
-	scenario 'Successful creation', :js do
+	scenario 'Successful creation', js: true do
 		visit root_path
 
-		fill_in "post_title", with: "Some more text"
+		fill_in "post_titlex", with: "Some more text"
 		fill_in "post_content", with: "Some more content"
 		click_on "Share"
-		
-		visit users_path(@user)
+		# find("input[name='commit']").click
+		# find("input[type='submit']", visible: false).click
+		# find(".playback", visible: false).click
 
+		visit user_path(@user)
+		# reload_page
 		expect(page).to have_content "Some more content"
 	end
 end
