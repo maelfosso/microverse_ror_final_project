@@ -99,7 +99,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.default_max_wait_time = 5
+  # config.default_max_wait_time = 5
 
   # Timeout if requests take longer than 5 seconds
   # config.timeout = 5
@@ -116,51 +116,8 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-Capybara.javascript_driver = :webkit
-# Capybara.timeout = 5
 
-# Capybara::Webkit.configure do |config|
-  # Enable debug mode. Prints a log of everything the driver is doing.
-  # config.debug = true
-
-  # By default, requests to outside domains (anything besides localhost) will
-  # result in a warning. Several methods allow you to change this behavior.
-
-  # Silently return an empty 200 response for any requests to unknown URLs.
-  # config.block_unknown_urls
-
-  # Allow pages to make requests to any URL without issuing a warning.
-  # config.allow_unknown_urls
-
-  # Allow a specific domain without issuing a warning.
-  # config.allow_url("localhost:3000")
-
-  # Allow a specific URL and path without issuing a warning.
-  # config.allow_url("localhost:3000/some/path")
-
-  # Wildcards are allowed in URL expressions.
-  # config.allow_url("*.localhost:3000")
-
-  # Silently return an empty 200 response for any requests to the given URL.
-  # config.block_url("localhost:3000")
-
-  # Timeout if requests take longer than 5 seconds
-  # config.timeout = 25
-
-  # Don't raise errors when SSL certificates can't be validated
-  # config.ignore_ssl_errors
-
-  # Don't load images
-  # config.skip_image_loading
-
-  # Use a proxy
-  # config.use_proxy(
-  #   host: "localhost:3000",
-  #   port: 1234,
-  #   user: "proxy",
-  #   pass: "secret"
-  # )
-
-  # Raise JavaScript errors as exceptions
-  # config.raise_javascript_errors = true
-# end
+Capybara.configure do |config|
+  config.default_max_wait_time = 5
+  config.javascript_driver = :webkit
+end
