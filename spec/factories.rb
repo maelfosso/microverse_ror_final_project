@@ -39,7 +39,6 @@ FactoryBot.define do
   end
 
   factory :notification do
-    user
     content { Faker::Lorem.sentence }
   end
 end

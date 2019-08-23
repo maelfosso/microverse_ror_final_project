@@ -53,7 +53,7 @@ RSpec.describe Post, type: :model do
     end
 
     it 'can have many comments' do
-      post.comments = create_list(:comment, 2, user: user)
+      post.comments = create_list(:comment, 2, user: user, post: post)
       expect(post.comments.size).to eq(2)
     end
 
@@ -69,8 +69,7 @@ RSpec.describe Post, type: :model do
 
     it 'can have many likes' do
       post.save
-      likes = create_list(:like, 2, user: user,
-                           subject_id: post.id, subject_type: 'Post')
+      likes = create_list(:like, 2, user: user, subject: post, post: post)
       post.likes = likes
 
       expect(post.likes).to eq(likes)

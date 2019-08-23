@@ -11,6 +11,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'devise'
+require 'capybara/rspec'
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -34,14 +35,21 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
+# Capybara.run_server = false
+# Capybara.default_selector = :css
+# Capybara.default_max_wait_time = 1
+# Capybara.javascript_driver = :webkit
+
 RSpec.configure do |config|
+  config.include Capybara::DSL
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -70,6 +78,31 @@ RSpec.configure do |config|
 
   # Add Warden for logging ins users for testing
   config.include Warden::Test::Helpers
+
+  # Database Cleaning configuration
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:deletion)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :deletion
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.default_max_wait_time = 5
+
+  # Timeout if requests take longer than 5 seconds
+  # config.timeout = 5
 end
 
 Shoulda::Matchers.configure do |config|
@@ -84,49 +117,50 @@ Shoulda::Matchers.configure do |config|
 end
 
 Capybara.javascript_driver = :webkit
+# Capybara.timeout = 5
 
 # Capybara::Webkit.configure do |config|
-#   # Enable debug mode. Prints a log of everything the driver is doing.
-#   config.debug = true
+  # Enable debug mode. Prints a log of everything the driver is doing.
+  # config.debug = true
 
-#   # By default, requests to outside domains (anything besides localhost) will
-#   # result in a warning. Several methods allow you to change this behavior.
+  # By default, requests to outside domains (anything besides localhost) will
+  # result in a warning. Several methods allow you to change this behavior.
 
-#   # Silently return an empty 200 response for any requests to unknown URLs.
-#   # config.block_unknown_urls
+  # Silently return an empty 200 response for any requests to unknown URLs.
+  # config.block_unknown_urls
 
-#   # Allow pages to make requests to any URL without issuing a warning.
-#   # config.allow_unknown_urls
+  # Allow pages to make requests to any URL without issuing a warning.
+  # config.allow_unknown_urls
 
-#   # Allow a specific domain without issuing a warning.
-#   config.allow_url("localhost:3000")
+  # Allow a specific domain without issuing a warning.
+  # config.allow_url("localhost:3000")
 
-#   # Allow a specific URL and path without issuing a warning.
-#   # config.allow_url("localhost:3000/some/path")
+  # Allow a specific URL and path without issuing a warning.
+  # config.allow_url("localhost:3000/some/path")
 
-#   # Wildcards are allowed in URL expressions.
-#   # config.allow_url("*.localhost:3000")
+  # Wildcards are allowed in URL expressions.
+  # config.allow_url("*.localhost:3000")
 
-#   # Silently return an empty 200 response for any requests to the given URL.
-#   # config.block_url("localhost:3000")
+  # Silently return an empty 200 response for any requests to the given URL.
+  # config.block_url("localhost:3000")
 
-#   # Timeout if requests take longer than 5 seconds
-#   config.timeout = 5
+  # Timeout if requests take longer than 5 seconds
+  # config.timeout = 25
 
-#   # Don't raise errors when SSL certificates can't be validated
-#   config.ignore_ssl_errors
+  # Don't raise errors when SSL certificates can't be validated
+  # config.ignore_ssl_errors
 
-#   # Don't load images
-#   config.skip_image_loading
+  # Don't load images
+  # config.skip_image_loading
 
-#   # Use a proxy
-#   # config.use_proxy(
-#   #   host: "localhost:3000",
-#   #   port: 1234,
-#   #   user: "proxy",
-#   #   pass: "secret"
-#   # )
+  # Use a proxy
+  # config.use_proxy(
+  #   host: "localhost:3000",
+  #   port: 1234,
+  #   user: "proxy",
+  #   pass: "secret"
+  # )
 
-#   # Raise JavaScript errors as exceptions
-#   # config.raise_javascript_errors = true
+  # Raise JavaScript errors as exceptions
+  # config.raise_javascript_errors = true
 # end
