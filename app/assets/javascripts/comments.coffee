@@ -10,7 +10,7 @@ $(document).on 'turbolinks:load',  ->
       $(this).height(this.scrollHeight - 10)
 
   $('body').on 'keydown', '.post textarea', (e) ->
-    if !e.shiftKey && e.key == 'Enter'
+    if !e.shiftKey && (e.key == 'Enter' || e.which == 13)
       e.preventDefault()
       textarea = this
       textarea.readOnly = true

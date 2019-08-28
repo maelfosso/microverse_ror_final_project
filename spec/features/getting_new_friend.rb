@@ -1,20 +1,21 @@
 require 'rails_helper'
 
-RSpec.feature 'Like a Post' do
+RSpec.feature 'Frienship' do
 	before do
     @user = create(:user)
 		login_as @user
-    @post = create(:post, user: @user)
+    create(:user, name: 'John')
 	end
 
-	scenario 'Successful friend process', :js do
-		visit root_path
-    visit users_path # _path(@user)
+	scenario 'Successful add friend', :js do
+    visit users_path
 
-    friends = page.all('Unfried')
-    
-    page.first('a.addfriend').click
+    click_link('Add Friend')
 
-    page.all("Unfriend").count.should eq(friends.size + 1)
+    find('a', text: 'Friend Request Sent')
+
+    visit friendships_path(s: 's')
+
+    expect(page).to have_content 'John'
 	end
 end

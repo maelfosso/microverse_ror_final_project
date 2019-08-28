@@ -42,7 +42,6 @@ end
 # Capybara.javascript_driver = :webkit
 
 RSpec.configure do |config|
-  config.include Capybara::DSL
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -78,6 +77,8 @@ RSpec.configure do |config|
 
   # Add Warden for logging ins users for testing
   config.include Warden::Test::Helpers
+
+  config.include Capybara::DSL
 
   # Database Cleaning configuration
   config.before(:suite) do
@@ -116,8 +117,11 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-
 Capybara.configure do |config|
   config.default_max_wait_time = 5
   config.javascript_driver = :webkit
+end
+
+Capybara::Webkit.configure do |config|
+  config.allow_unknown_urls
 end

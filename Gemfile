@@ -44,6 +44,15 @@ gem 'jquery-rails'
 
 gem 'faraday'
 
+gem 'faker'
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+gem 'devise'
+
+gem 'omniauth-facebook'
+
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
@@ -54,9 +63,6 @@ group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 end
-
-gem 'devise'
-gem 'omniauth-facebook'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -69,18 +75,10 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  gem 'capybara-webkit'
+  gem 'capybara'
   gem 'launchy'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
-
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
   gem 'rspec-collection_matchers'
   gem 'database_cleaner'
 end
-
-gem 'faker'
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
