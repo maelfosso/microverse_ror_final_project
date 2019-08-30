@@ -1,37 +1,52 @@
 class FriendshipsController < ApplicationController
   def index
-    @friends = current_user.friends
+    if id = params[:u]
+      @user = User.find(id)
+      @users = @user.friends
+    elsif q = params[:s]
+      if q == 's'
+        @users = current_user.friend_requests[:sent]
+        render 'sent'
+      elsif q == 'r'
+        @users = current_user.friend_requests[:received]
+        render 'received'
+      end
+    else
+      @users = []
+    end
   end
 
   def pending
-    @frien_requests = current_user.friend_requests
+    @requests = User.find(params[:u]).friend_requests
   end
 
   def create
-    @friendship = Friendship.new(friendship_params, status: 0)
+    @friendship = Friendship.new(friendship_params)
     if @friendship.save
-      sendNotification(friendship_params[:acceptor],
-                       "#{current_user.name} sent you a friend request")
+      sendNotification(@friendship.acceptor, 'request', @friendship.requestor)
     else
       flash.now[:error] = 'An error occured!'
     end
-    redirect_to params[:target]
+    redirect_to friendships_path(s: 's')
   end
 
   def update
-    @friendship = friendship.find(params[:id])
-    if @friendship.update(friendship_params)
-      if @friendship.accepted?
-        sendNotification(@friendship.requestor,
-                         "#{friendship.acceptor.name} accepted your friend request")
-      end
+    @friendship = Friendship.find(params[:id])
+    if @friendship.accepted!
+      sendNotification(@friendship.requestor, 'accept', @friendship.requestor)
     else
       flash.now[:error] = 'An error occured!'
     end
-    redirect_to params[:target]
+    redirect_to friendships_path(u: current_user.id)
+  end
+
+  def destroy
+    @friendship = Friendship.find(params[:id])
+    @friendship.destroy
+    redirect_to users_path
   end
 
   def friendship_params
-    params.require(:friendship).permit(:requestor, :acceptor, :status)
+    params.require(:friendship).permit(:requestor_id, :acceptor_id, :status)
   end
 end

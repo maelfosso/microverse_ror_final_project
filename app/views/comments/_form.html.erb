@@ -1,0 +1,14 @@
+<%= form_with model: comment, class: 'comment-form hide' do |f| %>
+  <span class='photo'>
+    <%= image_tag(photo_path(current_user)) %>
+  </span>
+  <div class='comment-box'>
+    <pre class="shadow"></pre>
+    <%= f.text_area :content, placeholder: 'Write a comment', rows: 1 %>
+  </div>
+  <%= f.hidden_field :post_id,      value: post.id %>
+  <%= f.hidden_field :subject_id,   value: subject.id %>
+  <%= f.hidden_field :user_id,      value: current_user.id %>
+  <%= f.hidden_field :subject_type, value: subject.class.name %>
+  <%= f.submit %>
+<% end %>

@@ -1,1 +1,14 @@
-Timeline!
+<section class="show">
+  <%= render 'profile', user: @user %>
+  <div class="post-wrapper">
+    <% if @user == current_user %>
+      <%= render 'posts/form', post: Post.new %>
+    <% end %>
+    <ul>
+      <% @posts.each do |post| %>
+        <%= render 'posts/post', post: post %>
+      <% end %>
+    </ul>
+  </div>
+  <%= render 'friends', user: @user %>
+</section>

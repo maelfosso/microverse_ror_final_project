@@ -1,0 +1,3 @@
+<%= link_to like, remote: true, method: :delete, class: "#{like_icon(like.kind)}" do %>
+  <%= icon('fas', like_icon(like.kind)) %> <%= like_name(like.kind) %>
+<% end %>

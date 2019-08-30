@@ -1,21 +1,29 @@
 class PostsController < ApplicationController
-  def new
-    @post = Post.new
+  def create
+    unless @post = current_user.posts.create(post_params)
+      flash.now[:error] = 'An error occured!'
+    end
   end
 
-  def create
-    @post = Post.new(post_params)
-    flash.now[:error] = 'An error occured!' unless @post.save
-    redirect_to params[:target]
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def edit
+    @post = Post.find(params[:id])
   end
 
   def update
-    @post = post.find(params[:id])
+    @post = Post.find(params[:id])
     flash.now[:error] = 'An error occured!' unless @post.update(post_params)
-    redirect_to params[:target]
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post&.destroy
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :user)
+    params.require(:post).permit(:title, :content)
   end
 end

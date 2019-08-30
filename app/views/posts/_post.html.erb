@@ -1,47 +1,31 @@
-<li class="post-wrapper">
+<li class="post" data-post-id="<%= post.id %>">
   <header>
-    <%= link_to post.user do %>
-      <%= image_tag(post.user.photo_path) %>
+    <%= link_to post.user, class: 'photo' do %>
+      <%= image_tag(photo_path(post.user)) %>
     <% end %>
     <%= link_to post.user.name, post.user %>
+    <%= render 'posts/action', user: post.user, post: post %>
   </header>
-  <main>
-    <p class="title"><%= post.title %></p>
-    <p class="content"><%= post.content %></p>
-  </main>
+  <section>
+    <pre class="title"><%= post.title %></pre>
+    <pre class="content"><%= post.content %></pre>
+    <div class="loader">
+      <% if post.likes.any? %>
+        <%= render 'likes/load', subject: post %>
+      <% end %>
+      <% if post.comments.any? %>
+        <%= render 'comments/load', subject: post %>
+      <% end %>
+    </div>
+  </section>
   <footer>
-    <div class="goto">
-      <%= link_to "#{post.likes.size} likes", post_likes_path(post) %>
-      <span>.</span>
-      <%= link_to "#{post.comments.size} comments", comment_likes_path(post) %>
+    <div class='reactions'>
+      <%= render 'likes/form', subject: post, post: post %>
+      <button class="comment"><%= icon('far', 'comment-alt') %> Comment</button>
     </div>
-    <div class="likes">
-      <div class="wrapper">
-        <ul>
-          <% [{icon: 'thumbs-up', kind: 0, name: 'Like'}, {icon: 'heart', kind: 1, name: 'Love'},
-              {icon: 'laugh', kind: 3, name: 'Haha'}, {icon: 'surprise', kind: 4, name: 'Wow'},
-              {icon: 'angry', kind: 5, name: 'Angry'}].each do |like| %>
-            <li>
-              <%= link_to(likes_path, method: :post, class: "#{like[:icon]}",
-                          params: {subject: post, user: current_user, kind: like[:kind]}) do %>
-                <%= icon('fas', like[:icon]) %> <span><%= like[:name] %></span>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-      <%= link_to(likes_path, method: :post, params: {subject: post, user: current_user, kind: 0}) do %>
-        <%= icon('far', 'thumbs-up') %> Like
-      <% end %>
-    </div>
-    <div class="comments">
-      <%= form_for(:comment, url: comments_path) do |f| %>
-        <%= f.text_area :content, placeholder: 'Add a comment', rows: 1 %>
-        <%= button_tag do %>
-          <%= icon('far', 'comment-alt') %> Comment
-        <% end %>
-        <%= f.hidden_field :subject, value: post %>
-      <% end %>
-    </div>
+    <ul class="comment-list">
+      <%= render 'comments/index', subject: post %>
+    </ul>
+    <%= render 'comments/form', comment: Comment.new, subject: post, post: post %>
   </footer>
 </li>

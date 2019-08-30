@@ -2,4 +2,186 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.likes-container {}
+.like-form {
+  width: 125px;
+  padding: 5px;
+  cursor: pointer;
+  position: relative;
+  border-radius: 2px;
+
+  a {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    text-decoration: none;
+    justify-content: center;
+  }
+
+  .choice {
+    &.default a {
+      color: inherit;
+
+      i {
+        color: inherit;
+      }
+    }
+
+    i {
+      margin-right: 3px;
+    }
+  }
+
+  .kinds {
+    left: -30px;
+    bottom: 100%;
+    display: none;
+    position: absolute;
+
+    &.show {
+      display: block;
+    }
+
+    ul {
+      margin: 5px 0;
+      display: flex;
+      padding: 5px 10px;
+      background: #fff;
+      border-radius: 30px;
+      border: 1px solid #ddd;
+
+      li {
+        margin: 0 7px;
+        color: #1300a3;
+
+        a {
+          font-size: 11px;
+          flex-direction: column;
+
+          i {
+            font-size: 2em;
+          }
+
+          &:hover {
+            i {
+              top: -5px;
+              position: relative;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &:hover {
+    background: #f5f5f5;
+  }
+}
+
+.likes {
+  width: 400px;
+  padding: 10px 0;
+  background: #fff;
+  border-radius: 5px;
+
+  header {
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding: 0 10px 10px;
+    border-bottom: 1px solid #f2f2f2;
+
+    ul {
+      display: flex;
+
+      li {
+        font-size: 14px;
+
+        &:not(:last-of-type) {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    button {
+      right: 5px;
+      padding: 0;
+      border: none;
+      color: #777;
+      cursor: pointer;
+      background: none;
+      position: absolute;
+
+      i {
+        padding: 5px;
+        display: block;
+
+        &:hover {
+          color: #999;
+        }
+      }
+    }
+  }
+
+  >ul {
+    overflow: auto;
+    padding: 0 10px;
+    max-height: 400px;
+
+    li {
+      display: flex;
+      padding: 7px 10px;
+      align-items: center;
+
+      a.photo {
+        width: 35px;
+        height: 35px;
+        position: relative;
+        margin-right: 10px;
+        border-radius: 50%;
+        background: #f5f5f5;
+
+        i {
+          right: -1px;
+          bottom: -1px;
+          position: absolute;
+        }
+      }
+
+      a:not(.photo) {
+        display: flex;
+        color: inherit;
+        align-items: center;
+        text-decoration: none;
+
+        &:nth-child(2) {
+          flex: auto;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        &:nth-child(3) {
+          padding: 3px 7px;
+          font-size: 0.9em;
+          border-radius: 3px;
+          background: #eee;
+
+          i {
+            color: #444;
+            font-size: 0.8em;
+            margin-right: 3px;
+          }
+
+          &:hover {
+            background: #f9f9f9;
+          }
+        }
+      }
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid #f2f2f2;
+      }
+    }
+  }
+}

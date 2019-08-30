@@ -12,8 +12,10 @@ class User < ApplicationRecord
   has_many :received_friendships, class_name: 'Friendship',
             foreign_key: 'acceptor_id', dependent: :destroy
 
-  has_many :posts, dependent: :destroy
-  has_many :notifications, dependent: :destroy
+  has_many :posts, -> {includes(:likes, :comments).order(id: :desc)}, dependent: :destroy
+  has_many :notifications, dependent: :destroy, foreign_key: 'receiver_id'
+
+  validates :username, presence: true
 
   def friend_requests
     {sent: requested_friendships.pending.includes(:acceptor).map(&:acceptor),
@@ -26,8 +28,13 @@ class User < ApplicationRecord
   end
 
   def friend_posts
-    received_friendships.accepted.includes(requestor: [:posts]).map(&:posts) +
-    requested_friendships.accepted.includes(acceptor: [:posts]).map(&:posts)
+    requested_friendships.accepted.includes(acceptor: [posts: [:likes, :comments]]).map(&:acceptor).map(&:posts).flatten +
+    received_friendships.accepted.includes(requestor: [posts: [:likes, :comments]]).map(&:requestor).map(&:posts).flatten
+  end
+
+  def friendship(u)
+    Friendship.where("requestor_id = #{id} AND acceptor_id = #{u.id} OR "\
+                     "requestor_id = #{u.id} AND acceptor_id = #{id}").first
   end
 
   def self.new_with_session(param, session)
@@ -42,9 +49,11 @@ class User < ApplicationRecord
     where(auth.slice(:provider, :uid)).first_or_create do |user|
       user.name = auth.info.name
       user.email = auth.info.email
+      user.gender = auth.info.gender
       user.photo_path = auth.info.image
-      user.password = Devise.friendly_token[0, 20]
-      user.username = auth.info.name.delete(" ").downcase
+      user.date_of_birth = auth.info.birthday
+      user.password = Devise.friendly_token[0,20]
+      user.username = user.name.delete(" ").downcase
     end
   end
 

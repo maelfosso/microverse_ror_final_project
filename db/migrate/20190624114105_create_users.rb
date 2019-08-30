@@ -6,9 +6,9 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :name
       t.binary :photo
       t.string :gender
+      t.string :username
       t.date :date_of_birth
       t.string :nationality
-      t.string :username
 
       t.timestamps
     end

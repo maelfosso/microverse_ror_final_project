@@ -1,0 +1,9 @@
+<% if comment.user == current_user %>
+  <div class="action">
+    <%= icon('fas', 'ellipsis-v') %>
+    <div>
+      <%= link_to 'Edit', edit_comment_path(comment), remote: true, class: 'edit' %>
+      <%= link_to 'Remove', comment, method: :delete, remote: true %>
+    </div>
+  </div>
+<% end %>

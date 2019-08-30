@@ -40,6 +40,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'font-awesome-sass', '~> 5.9.0'
 
+gem 'jquery-rails'
+
+gem 'faraday'
+
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'

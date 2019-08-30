@@ -1,0 +1,22 @@
+<ul>
+  <% h = Hash.new(0) %>
+  <% likes.each { |l| h[l.kind] += 1 } %>
+  <% if h['thumbs'] > 0 %>
+    <li><%= icon('fas', 'thumbs-up') %> <%= h['thumbs'] %></li>
+  <% end %>
+  <% if h['heart'] > 0 %>
+    <li><%= icon('fas', 'heart') %> <%= h['heart'] %></li>
+  <% end %>
+  <% if h['clap'] > 0 %>
+    <li><%= icon('fas', 'sign-language') %> <%= h['clap'] %></li>
+  <% end %>
+  <% if h['laugh'] > 0 %>
+    <li><%= icon('fas', 'laugh') %> <%= h['laugh'] %></li>
+  <% end %>
+  <% if h['surprise'] > 0 %>
+    <li><%= icon('fas', 'surprise') %> <%= h['surprise'] %></li>
+  <% end %>
+  <% if h['angry'] > 0 %>
+    <li><%= icon('fas', 'angry') %> <%= h['angry'] %></li>
+  <% end %>
+</ul>

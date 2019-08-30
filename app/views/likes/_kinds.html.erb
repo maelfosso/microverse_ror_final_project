@@ -1,0 +1,7 @@
+<ul>
+  <% Like.kinds.keys.each do |kind| %>
+    <li>
+      <%= render partial: form, locals: locals.update(kind: kind) %>
+    </li>
+  <% end %>
+</ul>

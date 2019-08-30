@@ -4,8 +4,9 @@ FactoryBot.define do
   factory :user, aliases: %i[acceptor requestor] do
     name { Faker::Name.name }
     password { Faker::Internet.password }
-    sequence(:username) { |n| "#{Faker::Internet.username(5..8)}-#{n}" }
-    email { "#{username.downcase}@microverse.com" }
+    username { name.delete(' ').downcase }
+    email { "#{username}@microverse.com" }
+    photo_path {"avatars/#{rand 1..4}.png"}
   end
 
   factory :friendship do

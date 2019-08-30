@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Allbook</title>
+    <title>EarthDiary</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,12 +10,11 @@
   </head>
 
   <body>
-    <%= render('layouts/header') if user_signed_in?  %>
+    <%= render('layouts/header') %>
     <main>
-      <% if @user %>
-        <aside><%= render('layouts/aside') %></aside>
-      <% end %>
-      <section><%= yield %></section>
+      <%= yield %>
     </main>
+    <div id="modal"></div>
+    <%= image_tag 'preload.gif', id: 'preload' %>
   </body>
 </html>

@@ -1,0 +1,26 @@
+<li data-comment-id="<%= comment.id %>">
+  <%= link_to comment.user, class: 'photo' do %>
+    <%= image_tag(photo_path(comment.user)) %>
+  <% end %>
+  <div class="content">
+    <%= link_to comment.user do %>
+      <%= comment.user.name %>
+    <% end %>
+    <pre><%= comment.content %></pre>
+    <% if comment.likes.any? %>
+      <%= render 'likes/load', subject: comment %>
+    <% end %>
+  </div>
+  <%= render 'comments/action', comment: comment %>
+  <div class="reactions">
+    <%= render 'likes/form', subject: comment, post: comment.post %>
+    <button class="reply">Reply</button>
+  </div>
+  <div class="replies">
+    <% if comment.comments.any? %>
+      <%= link_to 'View all replies', comment_comments_path(comment), remote: true, class: 'show-replies' %>
+    <% end %>
+    <ul class="comment-list hide"></ul>
+    <%= render 'comments/form', comment: Comment.new, subject: comment, post: comment.post %>
+  </div>
+</li>

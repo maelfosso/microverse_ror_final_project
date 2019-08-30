@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   def home
-    @user = current_user
     @posts = current_user.posts + current_user.friend_posts
   end
 

@@ -1,0 +1,20 @@
+<div class="post-form">
+  <header>Create Post</header>
+  <section>
+    <%= link_to current_user, class: 'photo' do %>
+      <%= image_tag(photo_path(current_user)) %>
+    <% end %>
+    <%= form_with model: post do |f| %>
+      <div class='title'>
+        <pre class="shadow"></pre>
+        <%= f.text_area :title, placeholder: 'Title', rows: 1 %>
+      </div>
+      <div class='content'>
+        <pre class="shadow"></pre>
+        <%= f.text_area :content, rows: 1, placeholder: "Inspire the world "\
+                        "#{current_user.name ? current_user.name.split[0] : ''}" %>
+      </div>
+      <%= f.submit %>
+    <% end %>
+  </section>
+</div>
