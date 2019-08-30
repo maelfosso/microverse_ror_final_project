@@ -42,6 +42,9 @@ gem 'font-awesome-sass', '~> 5.9.0'
 
 gem 'jquery-rails'
 
+gem 'devise'
+gem 'omniauth-facebook'
+
 gem 'faraday'
 
 group :development, :test do
@@ -54,9 +57,6 @@ group :development, :test do
   gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 end
-
-gem 'devise'
-gem 'omniauth-facebook'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
