@@ -16,4 +16,4 @@ It is part of [Microverse](https://www.microverse.org/) curriculum.
 4. Run `rails db:setup`
 5. Run `rails s`
 6. Open your browser and go to `http://localhost:3000`
-7. The integration test uses **capybara-webkit**. When running *bundle install* this gem will require some native extensions like Qt and others. Follow the instruction given here if facing difficulty on installing them(`https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit`).
+7. The integration test uses **capybara-webkit**. When running **bundle install** this gem will require some native extensions like Qt and others. Follow the instruction given here if facing difficulty on installing them(_https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit_).
