@@ -42,6 +42,9 @@ gem 'font-awesome-sass', '~> 5.9.0'
 
 gem 'jquery-rails'
 
+gem 'devise'
+gem 'omniauth-facebook'
+
 gem 'faraday'
 
 gem 'faker'
