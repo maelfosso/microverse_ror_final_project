@@ -52,38 +52,31 @@ gem 'faker'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem 'devise'
-
-gem 'omniauth-facebook'
-
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-
   gem 'dotenv-rails', require: 'dotenv/rails-now'
-
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'rubocop'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-
-  gem 'rubocop'
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
-  gem 'launchy'
   gem 'capybara-webkit'
-  gem 'selenium-webdriver'
-  gem 'rspec-collection_matchers'
   gem 'database_cleaner'
+  gem 'launchy'
+  gem 'rspec-collection_matchers'
+  gem 'selenium-webdriver'
 end
