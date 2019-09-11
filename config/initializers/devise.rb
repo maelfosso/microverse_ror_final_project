@@ -3,7 +3,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  #credentials
+  # credentials
   credentials = Rails.application.credentials
   FACEBOOK_APP_ID = credentials[:facebook][:app_id].freeze
   FACEBOOK_APP_SECRET = credentials[:facebook][:app_secret].freeze
@@ -13,7 +13,9 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '384ff1857e220bc98fb3510c38ca83e431ff893bb89b1bf06c182fb2b2873e680061974b229155aa879bc845fcef5e85bba2774f5c75a2d1e2797f19096be09c'
+  # config.secret_key =
+  # '384ff1857e220bc98fb3510c38ca83e431ff893bb89b1bf06c182fb2b2873e68
+  # 0061974b229155aa879bc845fcef5e85bba2774f5c75a2d1e2797f19096be09c'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -119,7 +121,8 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'bfc03eec3b14e29a5445dc212897c2fb9b267bb8c6e3f3107b3f8f3910aad1098d8ce7e981ec63697ffcd4fee7ce284db897838ae588451994f6866ad869f039'
+  # config.pepper = 'bfc03eec3b14e29a5445dc212897c2fb9b267bb8c6e3f3107b3f
+  # 8f3910aad1098d8ce7e981ec63697ffcd4fee7ce284db897838ae588451994f6866ad869f039'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
