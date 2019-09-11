@@ -14,7 +14,8 @@ class User < ApplicationRecord
 
   has_many :posts, -> {includes(:likes, :comments).order(id: :desc)}, dependent: :destroy
   has_many :notifications, dependent: :destroy, foreign_key: 'receiver_id'
-
+  has_many :comments, dependent: :destroy
+  
   validates :username, presence: true
 
   def friend_requests
