@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   def create
-    unless @post = current_user.posts.create(post_params)
-      flash.now[:error] = 'An error occured!'
-    end
+    @post = current_user.posts.create(post_params)
+    flash.now[:error] = 'An error occured!' unless @post
   end
 
   def show
