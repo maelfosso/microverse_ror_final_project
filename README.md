@@ -17,6 +17,7 @@ It is part of [Microverse](https://www.microverse.org/) curriculum.
 3. Connect to the adminstration console through `su - postgres` and then `psql`
 4. Create a new role called **microverse_ror_final_project** with password *microverse* using `create role microverse_ror_final_project with createdb login password 'microverse';`
 5. Run `bundle install`
-6. Run `rails db:setup`
-7. Run `rails s`
-8. Open your browser and go to `http://localhost:3000`
+6. The integration test uses **capybara-webkit**. When running **bundle install** this gem will require some native extensions like Qt and others. Follow the instruction given here if facing difficulty on installing them(_https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit_).
+7. Run `rails db:setup`
+8. Run `rails s`
+9. Open your browser and go to `http://localhost:3000`
