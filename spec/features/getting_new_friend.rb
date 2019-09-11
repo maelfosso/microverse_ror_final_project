@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.feature 'Frienship' do
-	before do
+  before do
     @user = create(:user)
-		login_as @user
+    login_as @user
     create(:user, name: 'John')
-	end
+  end
 
-	scenario 'Successful add friend', :js do
+  scenario 'Successful add friend', :js do
     visit users_path
 
     click_link('Add Friend')
@@ -17,5 +19,5 @@ RSpec.feature 'Frienship' do
     visit friendships_path(s: 's')
 
     expect(page).to have_content 'John'
-	end
+  end
 end

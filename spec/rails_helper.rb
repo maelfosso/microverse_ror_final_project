@@ -36,11 +36,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-# Capybara.run_server = false
-# Capybara.default_selector = :css
-# Capybara.default_max_wait_time = 1
-# Capybara.javascript_driver = :webkit
-
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -99,11 +94,6 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
-  # config.default_max_wait_time = 5
-
-  # Timeout if requests take longer than 5 seconds
-  # config.timeout = 5
 end
 
 Shoulda::Matchers.configure do |config|
@@ -124,4 +114,5 @@ end
 
 Capybara::Webkit.configure do |config|
   config.allow_unknown_urls
+  config.timeout = 5
 end
