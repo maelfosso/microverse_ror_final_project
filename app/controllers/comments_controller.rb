@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if @comment.save
       @subject = @comment.subject
-      sendNotification(@subject.user, 'comment', @comment)
+      send_notification(@subject.user, 'comment', @comment)
     else
       flash.now[:error] = 'An error occured!'
     end

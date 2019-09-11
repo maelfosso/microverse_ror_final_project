@@ -9,7 +9,7 @@ class LikesController < ApplicationController
     @subject = params[:subject_type].constantize.find(params[:subject_id])
     @like = @subject.likes.create(user_id: current_user.id, kind: params[:kind], post_id: params[:post_id])
     if @like
-      sendNotification(@subject.user, 'like', @like)
+      send_notification(@subject.user, 'like', @like)
     else
       flash.now[:error] = 'An error occured!'
     end

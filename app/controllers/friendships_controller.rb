@@ -27,7 +27,7 @@ class FriendshipsController < ApplicationController
   def create
     @friendship = Friendship.new(friendship_params)
     if @friendship.save
-      sendNotification(@friendship.acceptor, 'request', @friendship.requestor)
+      send_notification(@friendship.acceptor, 'request', @friendship.requestor)
     else
       flash.now[:error] = 'An error occured!'
     end
@@ -37,7 +37,7 @@ class FriendshipsController < ApplicationController
   def update
     @friendship = Friendship.find(params[:id])
     if @friendship.accepted!
-      sendNotification(@friendship.requestor, 'accept', @friendship.requestor)
+      send_notification(@friendship.requestor, 'accept', @friendship.requestor)
     else
       flash.now[:error] = 'An error occured!'
     end
