@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'users#home'
+  root to: 'application#home'
 
   resources :notifications, only: [:index]
 

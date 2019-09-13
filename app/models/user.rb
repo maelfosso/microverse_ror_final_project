@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :received_friendships, class_name: 'Friendship',
                                   foreign_key: 'acceptor_id', dependent: :destroy
 
-  has_many :posts, -> { includes(:likes, :comments).order(id: :desc) }, dependent: :destroy
+  has_many :posts, -> { includes(:likes, :comments).order(created_at: :desc) }, dependent: :destroy
   has_many :notifications, dependent: :destroy, foreign_key: 'receiver_id'
 
   validates :username, presence: true
