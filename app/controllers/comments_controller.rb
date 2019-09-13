@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = current_user.comments.build(comment_params)
     if @comment.save
       @subject = @comment.subject
       send_notification(@subject.user, 'comment', @comment)
@@ -38,6 +38,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:user_id, :subject_id, :subject_type, :post_id, :content)
+    params.require(:comment).permit(:subject_id, :subject_type, :post_id, :content)
   end
 end

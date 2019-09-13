@@ -7,6 +7,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   devise :omniauthable, omniauth_providers: %i[facebook]
 
+  has_many :comments
+
   has_many :requested_friendships, class_name: 'Friendship',
                                    foreign_key: 'requestor_id', dependent: :destroy
   has_many :received_friendships, class_name: 'Friendship',
