@@ -16,13 +16,6 @@ RSpec.describe User, type: :model do
         expect(user1).to be_valid
       end
     end
-
-    # context 'username is missing' do
-    #   it 'is not valid' do
-    #     user1.update(username: '')
-    #     expect(user1.errors[:username]).to include("can't be blank")
-    #   end
-    # end
   end
 
   describe 'friendships' do
