@@ -14,7 +14,6 @@ class User < ApplicationRecord
 
   has_many :posts, -> { includes(:likes, :comments).order(id: :desc) }, dependent: :destroy
   has_many :notifications, dependent: :destroy, foreign_key: 'receiver_id'
-  # has_many :comments, dependent: :destroy
 
   validates :username, presence: true
 
@@ -27,13 +26,13 @@ class User < ApplicationRecord
 
   def friends
     requested_friendships.accepted.includes(:acceptor).map(&:acceptor) +
-      received_friendships.accepted.includes(:requestor).map(&:requestor)
+    received_friendships.accepted.includes(:requestor).map(&:requestor)
   end
 
   def friend_posts
     requested_friendships.accepted.includes(acceptor: [posts: %i[likes comments]])
       .map(&:acceptor).map(&:posts).flatten +
-      received_friendships.accepted.includes(requestor: [posts: %i[likes comments]])
+    received_friendships.accepted.includes(requestor: [posts: %i[likes comments]])
       .map(&:requestor).map(&:posts).flatten
   end
 
