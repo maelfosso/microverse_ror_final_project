@@ -26,13 +26,13 @@ class User < ApplicationRecord
 
   def friends
     requested_friendships.accepted.includes(:acceptor).map(&:acceptor) +
-    received_friendships.accepted.includes(:requestor).map(&:requestor)
+      received_friendships.accepted.includes(:requestor).map(&:requestor)
   end
 
   def friend_posts
     requested_friendships.accepted.includes(acceptor: [posts: %i[likes comments]])
       .map(&:acceptor).map(&:posts).flatten +
-    received_friendships.accepted.includes(requestor: [posts: %i[likes comments]])
+      received_friendships.accepted.includes(requestor: [posts: %i[likes comments]])
       .map(&:requestor).map(&:posts).flatten
   end
 
