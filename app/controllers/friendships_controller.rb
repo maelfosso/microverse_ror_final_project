@@ -2,12 +2,10 @@
 
 class FriendshipsController < ApplicationController
   def index
-    q = params[:s]
-    id = params[:u]
-    if id
+    if id = params[:u]
       @user = User.find(id)
       @users = @user.friends
-    elsif q
+    elsif q = params[:s]
       if q == 's'
         @users = current_user.friend_requests[:sent]
         render 'sent'

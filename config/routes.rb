@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :notifications, only: [:index]
 
-  resources :users, only: [:index, :show], path: 'u'
+  resources :users, only: [:index, :show]
 
   resources :likes, only: [:create, :update, :destroy]
 
