@@ -112,7 +112,4 @@ Capybara.configure do |config|
   config.javascript_driver = :webkit
 end
 
-Capybara::Webkit.configure do |config|
-  config.allow_unknown_urls
-  config.timeout = 5
-end
+Capybara::Webkit.configure(&:allow_unknown_urls)

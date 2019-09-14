@@ -13,7 +13,7 @@
         <%= link_to like.user, class: 'user-link' do %>
           <%= like.user.name %>
         <% end %>
-        <% if current_user != like.user && current_user.friendship(like.user).nil? %>
+        <% if current_user != like.user && Friendship.between(current_user, like.user).nil? %>
           <%= link_to friendships_path(friendship: {requestor_id: current_user.id,
                                        acceptor_id: like.user.id, status: 'pending'}),
                       method: :post do %>

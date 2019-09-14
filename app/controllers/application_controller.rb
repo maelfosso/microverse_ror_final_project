@@ -13,8 +13,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def home
-    @posts = current_user.posts + current_user.friend_posts
-    render 'users/home'
+    @posts = current_user.posts.latest.includes(:likes, :comments) + current_user.friend_posts
   end
 
   protected

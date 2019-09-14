@@ -13,7 +13,7 @@ RSpec.feature 'Comment Post' do
     visit user_path(@user)
 
     page.find("li[data-post-id='#{@post.id}'] > footer > .comment-form textarea")
-      .set('I comment by test through RSPEC\n')
+      .set('I comment by test through RSPEC').send_keys(:return)
 
     expect(page).to have_content 'I comment by test through RSPEC'
   end
