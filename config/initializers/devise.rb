@@ -5,8 +5,8 @@
 Devise.setup do |config|
   # credentials
   credentials = Rails.application.credentials
-  FACEBOOK_APP_ID = credentials[:facebook][:app_id].freeze
-  FACEBOOK_APP_SECRET = credentials[:facebook][:app_secret].freeze
+  FACEBOOK_APP_ID = credentials[:facebook] && credentials[:facebook][:app_id].freeze
+  FACEBOOK_APP_SECRET = credentials[:facebook] && credentials[:facebook][:app_secret].freeze
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
