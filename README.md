@@ -21,3 +21,11 @@ It is part of [Microverse](https://www.microverse.org/) curriculum.
 7. Run `rails db:setup`
 8. Run `rails s`
 9. Open your browser and go to `http://localhost:3000`
+
+# Testing
+
+The project uses RSPEC for testing.
+As the integration test is done via *capybara-webkit*, in order to run the test inside *features* folder you need to run rspec prefixed by `xvfb-run -a` command.
+    - `rspec spec/models` and `xvfb-run -a rspec spec/features`
+    or just:
+    - `xvfb-run -a rspec` to run all tests in the same time.
