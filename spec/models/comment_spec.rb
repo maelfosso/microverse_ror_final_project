@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  let(:user)    { build(:user) }
-  let(:post)    { build(:post) }
+  let(:user) { build(:user) }
+  let(:post) { build(:post) }
   let(:comment) { build(:comment) }
   let(:comment2) { build(:comment) }
 
@@ -51,7 +51,7 @@ RSpec.describe Comment, type: :model do
       expect(comment2.subject_type).to eq('Comment')
     end
 
-    it "can't be nil"  do
+    it "can't be nil" do
       comment.subject = nil
       comment.save
       expect(comment.errors[:subject]).to be_present

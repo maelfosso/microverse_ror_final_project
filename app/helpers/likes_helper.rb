@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LikesHelper
   def like_icon(kind)
     if kind == 'thumbs'
@@ -10,18 +12,20 @@ module LikesHelper
   end
 
   def like_name(kind)
-    case kind
-    when 'thumbs' then 'Like'
-    when 'heart' then 'Love'
-    when 'clap' then 'Clap'
-    when 'laugh' then 'Haha'
-    when 'surprise' then 'Wow'
-    when 'angry' then 'Angry'
-    end
+    kinds = {
+      'thumbs' => 'Like',
+      'heart' => 'Love',
+      'clap' => 'Clap',
+      'laugh' => 'Haha',
+      'surprise' => 'Wow',
+      'angry' => 'Angry'
+    }
+
+    kinds[kind]
   end
 
   def liked(subject)
-    subject.likes.select{ |like| like.user == current_user }.first
+    subject.likes.select { |like| like.user == current_user }.first
   end
 
   def subject_likes_path(subject)

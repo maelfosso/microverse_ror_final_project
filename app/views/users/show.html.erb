@@ -5,9 +5,7 @@
       <%= render 'posts/form', post: Post.new %>
     <% end %>
     <ul>
-      <% @posts.each do |post| %>
-        <%= render 'posts/post', post: post %>
-      <% end %>
+      <%= render partial: 'posts/post', collection: @posts %>
     </ul>
   </div>
   <%= render 'friends', user: @user %>

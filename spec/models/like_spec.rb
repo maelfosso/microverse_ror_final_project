@@ -32,7 +32,7 @@ RSpec.describe Like, type: :model do
       expect(like.subject_type).to eq('Comment')
     end
 
-    it "can't be nil"  do
+    it "can't be nil" do
       comment.subject = nil
       comment.save
       expect(comment.errors[:subject]).to be_present

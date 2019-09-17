@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   def index
     @subject = path_to_subject(request, params)
@@ -9,10 +11,10 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = current_user.comments.build(comment_params)
     if @comment.save
       @subject = @comment.subject
-      sendNotification(@subject.user, 'comment', @comment)
+      send_notification(@subject.user, 'comment', @comment)
     else
       flash.now[:error] = 'An error occured!'
     end
@@ -36,6 +38,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:user_id, :subject_id, :subject_type, :post_id, :content)
+    params.require(:comment).permit(:subject_id, :subject_type, :post_id, :content)
   end
 end

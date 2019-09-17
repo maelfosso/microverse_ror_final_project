@@ -9,9 +9,9 @@ module ApplicationHelper
   end
 
   def path_to_subject(request, params)
-    if /^\/posts/ =~ request.fullpath
+    if %r{^\/posts} =~ request.fullpath
       Post.find(params[:post_id])
-    elsif /^\/comments/ =~ request.fullpath
+    elsif %r{^\/comments} =~ request.fullpath
       Comment.find(params[:comment_id])
     end
   end

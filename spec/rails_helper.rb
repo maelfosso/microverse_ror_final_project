@@ -35,6 +35,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -72,6 +73,8 @@ RSpec.configure do |config|
   # Add Warden for logging ins users for testing
   config.include Warden::Test::Helpers
 
+  config.include Capybara::DSL
+
   # Database Cleaning configuration
   config.before(:suite) do
     DatabaseCleaner.clean_with(:deletion)
@@ -108,3 +111,5 @@ Capybara.configure do |config|
   config.default_max_wait_time = 5
   config.javascript_driver = :webkit
 end
+
+Capybara::Webkit.configure(&:allow_unknown_urls)

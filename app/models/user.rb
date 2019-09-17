@@ -7,40 +7,32 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   devise :omniauthable, omniauth_providers: %i[facebook]
 
-  has_many :requested_friendships, class_name: 'Friendship',
-            foreign_key: 'requestor_id', dependent: :destroy
-  has_many :received_friendships, class_name: 'Friendship',
-            foreign_key: 'acceptor_id', dependent: :destroy
-
-  has_many :posts, -> {includes(:likes, :comments).order(id: :desc)}, dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy, foreign_key: 'receiver_id'
 
   validates :username, presence: true
 
-  def friend_requests
-    {sent: requested_friendships.pending.includes(:acceptor).map(&:acceptor),
-     received: received_friendships.pending.includes(:requestor).map(&:requestor)}
+  def friends
+    Friendship.accepted.acceptors(self) + Friendship.accepted.requestors(self)
   end
 
-  def friends
-    requested_friendships.accepted.includes(:acceptor).map(&:acceptor) +
-    received_friendships.accepted.includes(:requestor).map(&:requestor)
+  def friend_requests
+    {
+      sent: Friendship.pending.acceptors(self),
+      received: Friendship.pending.requestors(self)
+    }
   end
 
   def friend_posts
-    requested_friendships.accepted.includes(acceptor: [posts: [:likes, :comments]]).map(&:acceptor).map(&:posts).flatten +
-    received_friendships.accepted.includes(requestor: [posts: [:likes, :comments]]).map(&:requestor).map(&:posts).flatten
-  end
-
-  def friendship(u)
-    Friendship.where("requestor_id = #{id} AND acceptor_id = #{u.id} OR "\
-                     "requestor_id = #{u.id} AND acceptor_id = #{id}").first
+    (Friendship.accepted.acceptors(self) + Friendship.accepted.requestors(self))
+      .map { |user| user.posts.latest.includes(:likes, :comments) }.flatten
   end
 
   def self.new_with_session(param, session)
     super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user["email"] = data["email"] if user.email.blank?
+      if (data = session['devise.facebook_data']) && data['extra']['raw_info']
+        user['email'] = data['email'] if user.email.blank?
       end
     end
   end
@@ -52,9 +44,8 @@ class User < ApplicationRecord
       user.gender = auth.info.gender
       user.photo_path = auth.info.image
       user.date_of_birth = auth.info.birthday
-      user.password = Devise.friendly_token[0,20]
-      user.username = user.name.delete(" ").downcase
+      user.password = Devise.friendly_token[0, 20]
+      user.username = user.name.delete(' ').downcase
     end
   end
-
 end

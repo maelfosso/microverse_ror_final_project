@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class FriendshipsController < ApplicationController
   def index
-    if id = params[:u]
+    if (id = params[:u])
       @user = User.find(id)
       @users = @user.friends
-    elsif q = params[:s]
+    elsif (q = params[:s])
       if q == 's'
         @users = current_user.friend_requests[:sent]
         render 'sent'
@@ -23,7 +25,7 @@ class FriendshipsController < ApplicationController
   def create
     @friendship = Friendship.new(friendship_params)
     if @friendship.save
-      sendNotification(@friendship.acceptor, 'request', @friendship.requestor)
+      send_notification(@friendship.acceptor, 'request', @friendship.requestor)
     else
       flash.now[:error] = 'An error occured!'
     end
@@ -33,7 +35,7 @@ class FriendshipsController < ApplicationController
   def update
     @friendship = Friendship.find(params[:id])
     if @friendship.accepted!
-      sendNotification(@friendship.requestor, 'accept', @friendship.requestor)
+      send_notification(@friendship.requestor, 'accept', @friendship.requestor)
     else
       flash.now[:error] = 'An error occured!'
     end

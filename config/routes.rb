@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'users#home'
+  root 'users#home'
 
   resources :notifications, only: [:index]
-
-  resources :users, only: [:index, :show], path: 'u'
 
   resources :likes, only: [:create, :update, :destroy]
 
@@ -22,6 +20,8 @@ Rails.application.routes.draw do
   resources :friendships, only: [:index, :create, :update, :destroy], path: 'f'
 
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
+
+  resources :users, only: [:index, :show]
 
   get '*path', to: redirect('/')
 end
