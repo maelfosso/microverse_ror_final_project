@@ -8,12 +8,12 @@ class Friendship < ApplicationRecord
 
   validates :status, presence: true
 
-  def self.acceptors(user)
-    where(requestor_id: user.id).includes(:acceptor).map(&:acceptor)
+  def self.acceptors
+    includes(:acceptor).map(&:acceptor)
   end
 
-  def self.requestors(user)
-    where(acceptor_id: user.id).includes(:requestor).map(&:requestor)
+  def self.requestors
+    includes(:requestor).map(&:requestor)
   end
 
   def self.between(user1, user2)
