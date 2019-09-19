@@ -10,11 +10,11 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :received_friendships, dependent: :destroy, class_name: 'Friendship',
-                                  foreign_key: 'acceptor_id'
-  has_many :requested_friendships, dependent: :destroy, class_name: 'Friendship',
-                                   foreign_key: 'requestor_id'
   has_many :notifications, dependent: :destroy, foreign_key: 'receiver_id'
+  has_many :received_friendships,
+           dependent: :destroy, class_name: 'Friendship', foreign_key: 'acceptor_id'
+  has_many :requested_friendships,
+           dependent: :destroy, class_name: 'Friendship', foreign_key: 'requestor_id'
 
   validates :username, presence: true
 
