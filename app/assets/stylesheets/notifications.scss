@@ -1,0 +1,51 @@
+// Place all the styles related to the Notifications controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.notifications {
+  max-width: 500px;
+  margin: 25px auto;
+  background: #fff;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+
+  header {
+    color: #333;
+    background: #f0eeff;
+
+    h3 {
+      margin: 0;
+      font-weight: 600;
+      padding: 15px 10px;
+    }
+  }
+
+  ul {
+    li {
+      &:not(:last-child) {
+        border-bottom: 1px solid #ccc;
+      }
+
+      a {
+        padding: 5px;
+        display: flex;
+        color: #000;
+        align-items: center;
+        text-decoration: none;
+
+        &:hover {
+          background: #faf9ff;
+        }
+
+        .photo {
+          flex: none;
+          width: 50px;
+          height: 50px;
+          background: #eee;
+          margin-right: 10px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}

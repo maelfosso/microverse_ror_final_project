@@ -1,0 +1,31 @@
+<li class="post" data-post-id="<%= post.id %>">
+  <header>
+    <%= link_to post.user, class: 'photo' do %>
+      <%= image_tag(photo_path(post.user)) %>
+    <% end %>
+    <%= link_to post.user.name, post.user %>
+    <%= render 'posts/action', user: post.user, post: post %>
+  </header>
+  <section>
+    <pre class="title"><%= post.title %></pre>
+    <pre class="content"><%= post.content %></pre>
+    <div class="loader">
+      <% if post.likes.any? %>
+        <%= render 'likes/load', subject: post %>
+      <% end %>
+      <% if post.comments.any? %>
+        <%= render 'comments/load', subject: post %>
+      <% end %>
+    </div>
+  </section>
+  <footer>
+    <div class='reactions'>
+      <%= render 'likes/form', subject: post, post: post %>
+      <button class="comment"><%= icon('far', 'comment-alt') %> Comment</button>
+    </div>
+    <ul class="comment-list">
+      <%= render 'comments/index', subject: post %>
+    </ul>
+    <%= render 'comments/form', comment: Comment.new, subject: post, post: post %>
+  </footer>
+</li>

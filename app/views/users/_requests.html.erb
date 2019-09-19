@@ -1,0 +1,18 @@
+<div class="requests">
+  <header>
+    Friends Requests
+    <%= link_to 'See All', friendships_path(s: 'r') %>
+  </header>
+  <ul>
+    <% user.friend_requests[:received].each do |requestor| %>
+      <li>
+        <%= link_to do %>
+          <span class="photo">
+            <%= image_tag(photo_path(requestor)) %>
+          </span>
+          <%= requestor.name %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

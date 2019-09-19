@@ -1,0 +1,26 @@
+<div class="likes">
+  <header>
+    <%= render 'emoji', likes: @likes %>
+    <button class='close'><%= icon('fas', 'times') %></button>
+  </header>
+  <ul>
+    <% @likes.each do |like| %>
+      <li>
+        <%= link_to like.user, class: 'photo' do %>
+          <%= image_tag(photo_path(like.user)) %>
+          <%= icon('fas', like_icon(like.kind)) %>
+        <% end %>
+        <%= link_to like.user, class: 'user-link' do %>
+          <%= like.user.name %>
+        <% end %>
+        <% if current_user != like.user && Friendship.between(current_user, like.user).nil? %>
+          <%= link_to friendships_path(friendship: {requestor_id: current_user.id,
+                                       acceptor_id: like.user.id, status: 'pending'}),
+                      method: :post do %>
+            <%= icon('fas', 'user-plus') %>Add Friend
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

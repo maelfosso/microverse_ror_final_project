@@ -1,0 +1,4 @@
+<%= link_to(like_path(id: like.id, kind: kind),
+            remote: true, method: :patch, class: "#{like_icon(kind)}") do %>
+  <%= icon('fas', like_icon(kind)) %> <%= like_name(kind) %>
+<% end %>

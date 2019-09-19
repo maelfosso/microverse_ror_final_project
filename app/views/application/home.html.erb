@@ -1,0 +1,16 @@
+<section class="home">
+  <div class="account">
+    <%= render 'users/profile', user: current_user %>
+    <%= render 'users/friends', user: current_user %>
+  </div>
+  <div class="post-wrapper">
+    <%= render 'posts/form', post: Post.new %>
+    <ul>
+      <%= render partial: 'posts/post', collection: @posts %>
+    </ul>
+  </div>
+  <div class="news">
+    <%= render 'users/notifs', user: current_user %>
+    <%= render 'users/requests', user: current_user %>
+  </div>
+</section>

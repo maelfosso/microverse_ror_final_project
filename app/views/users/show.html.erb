@@ -1,0 +1,12 @@
+<section class="show">
+  <%= render 'profile', user: @user %>
+  <div class="post-wrapper">
+    <% if @user == current_user %>
+      <%= render 'posts/form', post: Post.new %>
+    <% end %>
+    <ul>
+      <%= render partial: 'posts/post', collection: @posts %>
+    </ul>
+  </div>
+  <%= render 'friends', user: @user %>
+</section>

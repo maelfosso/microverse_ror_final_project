@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MicroverseRorFinalProject</title>
+    <title>EarthDiary</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,11 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render('layouts/header') %>
+    <main>
+      <%= yield %>
+    </main>
+    <div id="modal"></div>
+    <%= image_tag 'preload.gif', id: 'preload' %>
   </body>
 </html>

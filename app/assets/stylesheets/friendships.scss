@@ -1,0 +1,115 @@
+// Place all the styles related to the Friendships controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.friendships {
+  flex: auto;
+  margin: 2% auto;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+
+  header {
+    background: #f0eeff;
+
+    h3 {
+      margin: 0;
+      padding: 10px;
+      font-weight: 600;
+
+      .small {
+        color: inherit;
+        font-size: 0.8em;
+      }
+
+      .link {
+        display: block;
+        color: #1300a3;
+        font-size: normal;
+        font-weight: normal;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .req-link {
+        float: right;
+        color: #1300a3;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  ul {
+    padding: 20px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: minmax(auto, 50%) minmax(auto, 50%);
+
+    li {
+      padding: 2px;
+      display: flex;
+      border-radius: 2px;
+      align-items: center;
+      border: 1px solid #ccc;
+
+      a {
+        color: #1300a3;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &.photo {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          margin-right: 10px;
+          background: #eee;
+        }
+
+        &.name {
+          flex: auto;
+        }
+
+        &.delete,
+        &.confirm,
+        &.addfriend {
+          padding: 5px;
+          display: flex;
+          font-weight: 600;
+          font-size: 0.95em;
+          margin-right: 5px;
+          border-radius: 2px;
+          align-items: center;
+          text-decoration: none;
+          justify-content: center;
+
+          i {
+            font-size: 0.8em;
+            margin-right: 2px;
+          }
+        }
+
+        &.delete {
+          color: #222;
+          background: #e7e7e7;
+        }
+
+        &.confirm,
+        &.addfriend {
+          color: #fff;
+          background: #1300a3;
+        }
+      }
+    }
+  }
+}

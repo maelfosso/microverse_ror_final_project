@@ -1,0 +1,13 @@
+$subject = $("<%= data_id @subject %>")
+
+if ("<%= @subject.class.name %>" == 'Post') {
+  $list = $subject.find('> footer > .comment-list')
+} else {
+  $list = $subject.find('> .replies > .comment-list')
+  $subject.find("> .replies .show-replies").hide()
+}
+
+$list.show()
+$list.removeClass('hide')
+$list.html("<%= j render 'index', subject: @subject %>")
+$('#preload').hide()

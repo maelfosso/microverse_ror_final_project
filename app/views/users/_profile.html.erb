@@ -1,0 +1,41 @@
+<div class="profile">
+  <header>
+    <%= link_to user, class: 'photo' do %>
+      <%= image_tag(photo_path(user)) %>
+    <% end %>
+    <%= link_to user, class: 'name' do %>
+      <%= user.username %>
+    <% end %>
+    <% if user == current_user %>
+      <%= link_to edit_user_registration_path, class: 'edit' do %>
+        Edit <%= icon('fas', 'pen') %>
+      <% end %>
+    <% end %>
+  </header>
+  <section>
+    <% if user.name %>
+      <p>
+        <span class="label">Name</span>
+        <span class="info"><%= user.name %></span>
+      </p>
+    <% end %>
+    <% if user.gender %>
+      <p>
+        <span class="label">Gender</span>
+        <span class="info"><%= user.gender %></span>
+      </p>
+    <% end %>
+    <% if user.date_of_birth %>
+      <p>
+        <span class="label">Date of birth</span>
+        <span class="info"><%= user.date_of_birth %></span>
+      </p>
+    <% end %>
+    <% if user.nationality %>
+      <p>
+        <span class="label">From</span>
+        <span class="info"><%= user.nationality %></span>
+      </p>
+    <% end %>
+  </section>
+</div>

@@ -1,0 +1,9 @@
+<div class="friendships">
+  <header>
+    <h3>
+      <span>Find Friends</span>
+      <%= link_to 'Friend Requests', friendships_path(s: 'r'), class: 'req-link' %>
+    </h3>
+  </header>
+  <%= render 'friendships/friendship', users: @users %>
+</div>
