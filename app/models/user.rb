@@ -7,26 +7,30 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   devise :omniauthable, omniauth_providers: %i[facebook]
 
+  has_many :likes, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy, foreign_key: 'receiver_id'
+  has_many :received_friendships,
+           dependent: :destroy, class_name: 'Friendship', foreign_key: 'acceptor_id'
+  has_many :requested_friendships,
+           dependent: :destroy, class_name: 'Friendship', foreign_key: 'requestor_id'
 
   validates :username, presence: true
 
   def friends
-    Friendship.accepted.acceptors(self) + Friendship.accepted.requestors(self)
+    requested_friendships.accepted.acceptors + received_friendships.accepted.requestors
   end
 
   def friend_requests
     {
-      sent: Friendship.pending.acceptors(self),
-      received: Friendship.pending.requestors(self)
+      sent: requested_friendships.pending.acceptors,
+      received: received_friendships.pending.requestors
     }
   end
 
   def friend_posts
-    (Friendship.accepted.acceptors(self) + Friendship.accepted.requestors(self))
-      .map { |user| user.posts.latest.includes(:likes, :comments) }.flatten
+    friends.map { |user| user.posts.latest.includes(:likes, :comments) }.flatten
   end
 
   def self.new_with_session(param, session)
