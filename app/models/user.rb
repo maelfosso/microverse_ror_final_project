@@ -30,8 +30,7 @@ class User < ApplicationRecord
   end
 
   def friend_posts
-    (requested_friendships.accepted.acceptors + received_friendships.accepted.requestors)
-      .map { |user| user.posts.latest.includes(:likes, :comments) }.flatten
+    friends.map { |user| user.posts.latest.includes(:likes, :comments) }.flatten
   end
 
   def self.new_with_session(param, session)
