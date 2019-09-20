@@ -4,15 +4,7 @@
     <%= link_to 'See All', notifications_path %>
   </header>
   <ul>
-    <% user.notifications.each do |notif| %>
-      <li>
-        <%= link_to notif.subject.respond_to?(:post) ? notif.subject.post : notif.sender do %>
-          <span class="photo">
-            <%= image_tag(photo_path(notif.sender)) %>
-          </span>
-          <%= notif.content %>
-        <% end %>
-      </li>
-    <% end %>
+    <%= render partial: 'notifications/notif',
+               collection: user.notifications.unread, as: :notif %>
   </ul>
 </div>

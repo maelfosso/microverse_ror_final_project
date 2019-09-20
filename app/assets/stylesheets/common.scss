@@ -145,6 +145,25 @@ body {
                 }
               }
             }
+
+            &.notifs-link {
+              position: relative;
+
+              .alert {
+                top: 0;
+                right: 0;
+                width: 17px;
+                height: 17px;
+                color: #fff;
+                display: flex;
+                line-height: 1;
+                border-radius: 50%;
+                position: absolute;
+                align-items: center;
+                background: #e70040;
+                justify-content: center;
+              }
+            }
           }
 
           &.account {

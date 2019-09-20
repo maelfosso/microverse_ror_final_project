@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   root 'users#home'
 
-  resources :notifications, only: [:index]
+  resources :notifications, only: [:show, :index]
 
   resources :likes, only: [:create, :update, :destroy]
 
