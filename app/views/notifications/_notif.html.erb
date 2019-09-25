@@ -1,0 +1,8 @@
+<li>
+  <%= link_to notif do %>
+    <span class="photo">
+      <%= image_tag(photo_path(notif.sender)) %>
+    </span>
+    <%= notif.content %>
+  <% end %>
+</li>

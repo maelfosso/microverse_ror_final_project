@@ -13,7 +13,10 @@
         </li>
         <li><%= link_to 'Home', root_path %></li>
         <li>
-          <%= link_to notifications_path do%>
+          <%= link_to notifications_path, class: 'notifs-link' do%>
+            <% if current_user.notifications.unread.size.positive? %>
+              <span class="alert"><%= current_user.notifications.unread.size %></span>
+            <% end %>
             <%= icon('fas', 'bell') %> Notifications
           <% end %>
         </li>
