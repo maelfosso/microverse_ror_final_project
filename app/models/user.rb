@@ -49,7 +49,7 @@ class User < ApplicationRecord
       user.photo_path = auth.info.image
       user.date_of_birth = auth.info.birthday
       user.password = Devise.friendly_token[0, 20]
-      user.username = user.name.delete(' ').downcase
+      user.username = user.name.downcase.delete(' ')
     end
   end
 end
