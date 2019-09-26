@@ -1,0 +1,17 @@
+<div class="like-form">
+  <% if like = liked(subject) %>
+    <div class="kinds">
+      <%= render 'likes/kinds', form: 'likes/edit', locals: {like: like} %>
+    </div>
+    <div class="choice">
+      <%= render 'likes/destroy', like: like%>
+    </div>
+  <% else %>
+    <div class="kinds">
+      <%= render 'likes/kinds', form: 'likes/new', locals: {subject: subject, post: post} %>
+    </div>
+    <div class="choice default">
+      <%= render 'likes/new', subject: subject, post: post, kind: 'thumbs' %>
+    </div>
+  <% end %>
+</div>

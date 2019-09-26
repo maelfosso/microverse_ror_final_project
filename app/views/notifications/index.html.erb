@@ -1,0 +1,12 @@
+<div class="notifications">
+  <header>
+    <h3>
+      Your notifications
+    </h3>
+  </header>
+  <% if @notifs.any? %>
+    <ul>
+      <%= render partial: 'notifications/notif', collection: @notifs %>
+    </ul>
+  <% end %>
+</div>

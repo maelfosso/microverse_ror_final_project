@@ -1,0 +1,208 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.home,
+.show {
+  display: flex;
+  padding: 10px 0;
+  justify-content: center;
+
+  .news,
+  .account,
+  >.profile,
+  >.friends {
+    flex: auto;
+    width: 23%;
+    position: fixed;
+  }
+
+  .news,
+  >.friends {
+    left: 70%;
+  }
+
+  .account,
+  >.profile {
+    right: 70%;
+  }
+
+  .notifs,
+  .profile,
+  .friends,
+  .requests {
+    padding: 10px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+
+    section {
+      overflow: auto;
+      max-height: 250px;
+    }
+  }
+
+  .notifs,
+  .profile {
+    margin-bottom: 20px;
+  }
+
+  .profile {
+    padding-bottom: 0;
+
+    header {
+      display: flex;
+      position: relative;
+      align-items: center;
+      flex-direction: column;
+
+      a {
+        text-decoration: none;
+
+        &.photo {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          background: #eee;
+        }
+
+        &.name {
+          margin-top: 5px;
+          color: #1300a3;
+          font-weight: 600;
+        }
+      }
+
+      .edit {
+        top: 0;
+        right: 0;
+        color: #444;
+        display: flex;
+        font-size: 0.9em;
+        padding: 4px 10px;
+        position: absolute;
+        border-radius: 2px;
+        align-items: center;
+
+        &:hover {
+          background: #f5f5f5;
+        }
+
+        i {
+          font-size: 0.8em;
+          margin-left: 5px;
+        }
+      }
+    }
+
+    section {
+      p {
+        display: flex;
+
+        .label {
+          margin: 0 5px;
+        }
+
+        .info {
+          flex: auto;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  .notifs,
+  .friends,
+  .requests {
+    padding: 0;
+
+    header {
+      padding: 10px;
+      color: #333;
+      overflow: auto;
+      font-weight: 600;
+      background: #f0eeff;
+
+      a {
+        float: right;
+        color: #1300a3;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .friends {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+
+      li {
+        flex: auto;
+        padding: 10px;
+        max-width: 33%;
+
+        a {
+          display: flex;
+          color: #1300a3;
+          text-align: center;
+          align-items: center;
+          word-break: break-all;
+          text-decoration: none;
+          flex-direction: column;
+
+          .photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #eee;
+          }
+        }
+      }
+    }
+  }
+
+  .notifs,
+  .requests {
+    ul {
+      overflow: auto;
+      max-height: 250px;
+
+      li {
+        padding: 0 10px;
+
+        &:not(:last-of-type) a {
+          border-bottom: 1px solid #e5e5e5;
+        }
+
+        &:hover {
+          background: #f8f9ff;
+        }
+
+        a {
+          display: flex;
+          padding: 10px;
+          color: inherit;
+          align-items: center;
+          text-decoration: none;
+
+          .photo {
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+            border-radius: 50%;
+            background: #eee;
+          }
+        }
+      }
+    }
+  }
+}
+
+.show {
+  .account {
+    right: 62%;
+  }
+}

@@ -1,0 +1,5 @@
+$subject = $("<%= data_id @subject %>")
+$subject.find('.comments-loader')
+    .replaceWith("<%= j render 'load', subject: @subject %>")
+$subject.find("[data-comment-id='<%= @comment.id %>']").remove()
+$('#preload').hide()

@@ -1,3 +1,27 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'users#home'
+
+  resources :notifications, only: [:show, :index]
+
+  resources :likes, only: [:create, :update, :destroy]
+
+  resources :posts, only: [:show, :create, :edit, :update, :destroy] do
+    resources :likes, only: [:index]
+    resources :comments, only: [:index]
+  end
+
+  resources :comments, only: [:new, :create, :edit, :update, :destroy] do
+    resources :likes, only: [:index]
+    resources :comments, only: [:index], path: 'replies'
+  end
+
+  resources :friendships, only: [:index, :create, :update, :destroy], path: 'f'
+
+  devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
+
+  resources :users, only: [:index, :show]
+
+  get '*path', to: redirect('/')
 end

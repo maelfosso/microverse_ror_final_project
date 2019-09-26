@@ -1,0 +1,10 @@
+<div class="notifs">
+  <header>
+    Notifications
+    <%= link_to 'See All', notifications_path %>
+  </header>
+  <ul>
+    <%= render partial: 'notifications/notif',
+               collection: user.notifications.reload.unread, as: :notif %>
+  </ul>
+</div>

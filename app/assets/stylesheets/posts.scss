@@ -1,0 +1,207 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$grey: #ddd;
+
+.post-wrapper {
+  flex: auto;
+  max-width: 38%;
+
+  .post {
+    padding: 5px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid $grey;
+
+    &:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+
+    header {
+      padding: 7px;
+      display: flex;
+      position: relative;
+      align-items: center;
+      border-radius: 5px 5px 0 0;
+
+      >a {
+        color: #1300a3;
+        font-weight: 600;
+        text-decoration: none;
+
+        &.photo {
+          width: 30px;
+          height: 30px;
+          background: #eee;
+          margin-right: 5px;
+          border-radius: 50%;
+
+          img {
+            width: 100%;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+
+    section {
+      padding: 0 7px;
+
+      .title,
+      .content {
+        font-family: inherit;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+      }
+
+      .title {
+        padding: 5px;
+        font-weight: bold;
+      }
+
+      .content {
+        padding: 20px 10px;
+        border-top: 1px dashed $grey;
+        border-bottom: 1px dashed $grey;
+      }
+
+      .loader {
+        overflow: auto;
+
+        a {
+          padding: 5px;
+          color: #555;
+          display: flex;
+          max-width: 50%;
+          text-decoration: none;
+
+          &.likes-loader {
+            float: left;
+
+            ul {
+              display: flex;
+              margin-right: 5px;
+            }
+          }
+
+          &.comments-loader {
+            float: right;
+            text-align: right;
+          }
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    footer {
+      padding: 0 7px 7px;
+      flex-direction: column;
+
+      >.reactions {
+        display: flex;
+        padding: 10px 0 20px;
+        justify-content: space-around;
+      }
+    }
+  }
+}
+
+.post-form {
+  background: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  border: 1px solid $grey;
+
+  header {
+    color: #333;
+    padding: 10px;
+    font-weight: 600;
+    background: #f0eeff;
+    border-radius: 5px 5px 0 0;
+  }
+
+  section {
+    display: flex;
+    padding: 10px;
+    align-items: start;
+
+    a {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+      background: #eee;
+    }
+
+    form {
+      flex: auto;
+
+      .title,
+      .content {
+        flex: auto;
+        position: relative;
+
+        .shadow,
+        textarea {
+          width: 100%;
+          border: none;
+          font-size: 1em;
+          font-family: inherit;
+        }
+
+        .shadow {
+          z-index: -1000;
+          position: absolute;
+          word-wrap: break-word;
+          white-space: pre-wrap;
+        }
+
+        textarea {
+          resize: none;
+          overflow: hidden;
+        }
+      }
+
+      .title {
+
+        .shadow,
+        textarea {
+          color: #444;
+          min-height: 30px;
+          font-weight: 600;
+          padding: 5px 10px;
+        }
+      }
+
+      .content {
+        margin-bottom: 7px;
+        border-top: 1px dashed $grey;
+        border-bottom: 1px dashed $grey;
+
+        .shadow,
+        textarea {
+          min-height: 50px;
+          padding: 15px 15px;
+        }
+      }
+
+      input[type=submit] {
+        float: right;
+        border: none;
+        color: #fff;
+        display: none;
+        cursor: pointer;
+        padding: 4px 25px;
+        border-radius: 2px;
+        background: #1c00c4;
+
+        &:hover {
+          background: #1f00d7;
+        }
+      }
+    }
+  }
+}

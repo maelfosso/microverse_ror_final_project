@@ -1,0 +1,47 @@
+<header>
+  <h1 class="title"><%= link_to 'EarthDiary', root_path %></h1>
+  <% if user_signed_in? %>
+    <nav>
+      <ul>
+        <li>
+          <%= link_to current_user, class: 'profile-link' do %>
+            <span class="photo">
+              <%= image_tag(photo_path(current_user)) %>
+            </span>
+            <%= current_user.username || (current_user.name && current_user.name.split[0]) %>
+          <% end %>
+        </li>
+        <li><%= link_to 'Home', root_path %></li>
+        <li>
+          <%= link_to notifications_path, class: 'notifs-link' do %>
+            <% if current_user.notifications.reload.unread.any? %>
+              <span class="alert"><%= current_user.notifications.reload.unread.size %></span>
+            <% end %>
+            <%= icon('fas', 'bell') %> Notifications
+          <% end %>
+        </li>
+        <li class="f-menu">
+          <%= link_to users_path do %>
+            <%= icon('fas', 'user-friends') %> Find Friends
+          <% end %>
+          <%= link_to 'Friend Requests', friendships_path(s: 'r') %>
+        </li>
+        <li class="account">
+          <%= icon('fas', 'chevron-down') %>
+          <ul>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <%= icon('fas', 'sign-out-alt') %>Log out
+              <% end %>
+            </li>
+            <li>
+              <%= link_to edit_user_registration_path do %>
+                <%= icon('fas', 'user-cog') %>Settings
+              <% end %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  <% end %>
+</header>

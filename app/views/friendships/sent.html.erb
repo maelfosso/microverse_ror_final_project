@@ -1,0 +1,9 @@
+<div class="friendships">
+  <header>
+    <h3>
+      Friends Requests Sent
+      <%= link_to 'View received requests', friendships_path(s: 'r'), class: 'link' %>
+    </h3>
+  </header>
+  <%= render 'friendship', users: @users %>
+</div>

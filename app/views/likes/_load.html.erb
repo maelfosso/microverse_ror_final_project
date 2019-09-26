@@ -1,0 +1,31 @@
+<% if subject.likes.any? %>
+  <%= link_to subject_likes_path(subject), remote: true, class: 'likes-loader' do %>
+    <% h = Hash.new(0) %>
+    <% subject.likes.each { |l| h[l.kind] += 1 } %>
+    <ul>
+      <% if h['thumbs'] > 0 %>
+        <li><%= icon('fas', 'thumbs-up') %></li>
+      <% end %>
+      <% if h['heart'] > 0 %>
+        <li><%= icon('fas', 'heart') %></li>
+      <% end %>
+      <% if h['clap'] > 0 %>
+        <li><%= icon('fas', 'sign-language') %></li>
+      <% end %>
+      <% if h['laugh'] > 0 %>
+        <li><%= icon('fas', 'laugh') %></li>
+      <% end %>
+      <% if h['surprise'] > 0 %>
+        <li><%= icon('fas', 'surprise') %></li>
+      <% end %>
+      <% if h['angry'] > 0 %>
+        <li><%= icon('fas', 'angry') %></li>
+      <% end %>
+    </ul>
+    <% if subject.likes.any? %>
+      <span class="count">
+        <%= subject.likes.size %>
+      </span>
+    <% end %>
+  <% end %>
+<% end %>

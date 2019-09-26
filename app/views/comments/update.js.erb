@@ -1,0 +1,28 @@
+$subject = $("<%= data_id @subject %>")
+$textarea = $subject.find('textarea')
+$textarea.val('')
+$textarea.blur()
+$textarea.attr('readOnly', false)
+$shadow = $subject.find('.shadow')
+$shadow.html('')
+$textarea.height($shadow.height())
+$loader = $subject.find('.comments-loader')
+
+if ($loader.length == 0)
+  $subject.find('.loader').append("<%= j render 'load', subject: @subject %>")
+else
+  $loader.replaceWith("<%= j render 'load', subject: @subject %>")
+
+if ("<%= @subject.class.name %>" == 'Post') {
+  $list = $subject.find('> footer > .comment-list')
+  $form = $subject.find('> footer > .comment-form')
+  $list.show()
+} else {
+  $list = $subject.find('> .replies > .comment-list')
+  $form = $subject.find('> .replies > .comment-form')
+  $list.removeClass('hide')
+}
+
+$list.append("<%= j render 'comment', comment: @comment %>")
+$form.replaceWith("<%= j render 'form', comment: Comment.new, subject: @subject, post: @comment.post %>")
+$('#preload').hide()

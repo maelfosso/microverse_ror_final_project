@@ -1,0 +1,5 @@
+<%= link_to(likes_path(subject_author_id: subject.user.id, subject_id: subject.id,
+                       subject_type: subject.class.name, kind: kind, post_id: post.id),
+            remote: true, method: :post, class: "#{like_icon(kind)}") do %>
+  <%= icon('fas', like_icon(kind)) %> <span class="kind"><%= like_name(kind) %></span>
+<% end %>

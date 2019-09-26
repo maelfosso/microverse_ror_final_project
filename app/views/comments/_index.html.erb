@@ -1,0 +1,8 @@
+<li>
+  <span class="hide-comments">
+    Hide <%= subject.class.name == 'Post' ? 'comments' : 'replies' %>
+  </span>
+</li>
+<% subject.comments.each do |comment| %>
+  <%= render 'comments/comment', comment: comment %>
+<% end %>
