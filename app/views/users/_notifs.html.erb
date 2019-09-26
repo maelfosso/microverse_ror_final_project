@@ -5,6 +5,6 @@
   </header>
   <ul>
     <%= render partial: 'notifications/notif',
-               collection: user.notifications.unread, as: :notif %>
+               collection: user.notifications.reload.unread, as: :notif %>
   </ul>
 </div>

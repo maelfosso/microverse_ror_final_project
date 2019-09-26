@@ -16,6 +16,6 @@ class NotificationsController < ApplicationController
   end
 
   def index
-    @notifs = current_user.notifications.unread
+    @notifs = current_user.notifications.reload.unread
   end
 end
