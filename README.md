@@ -3,6 +3,7 @@
 This project brings all the core functionnality of rails framework into practice through a basic implementation of Facebook webapp.
 It is part of [Microverse](https://www.microverse.org/) curriculum.
 
+![Earthdiary](https://github.com/FabienNeibaf/Portfolio/blob/master/src/images/Earthdiary.png)
 # Authors
 
 - Fabien RAKOTOMAMPIANDRA _https://github.com/FabienNeibaf_
